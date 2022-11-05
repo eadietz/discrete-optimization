@@ -1148,8 +1148,8 @@
 
 <div class="viewcode-block" id="create_poisson_laws_duration"><a class="viewcode-back" href="../../../api/discrete_optimization.rcpsp.html#discrete_optimization.rcpsp.rcpsp_model.create_poisson_laws_duration">[docs]</a><span class="k">def</span> <span class="nf">create_poisson_laws_duration</span><span class="p">(</span><span class="n">rcpsp_model</span><span class="p">:</span> <span class="n">RCPSPModel</span><span class="p">,</span> <span class="n">range_around_mean</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
     <span class="n">poisson_dict</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">sink</span> <span class="o">=</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">source_task</span>
+    <span class="n">sink</span> <span class="o">=</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">sink_task</span>
     <span class="k">for</span> <span class="n">job</span> <span class="ow">in</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">mode_details</span><span class="p">:</span>
         <span class="n">poisson_dict</span><span class="p">[</span><span class="n">job</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">mode</span> <span class="ow">in</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">mode_details</span><span class="p">[</span><span class="n">job</span><span class="p">]:</span>
@@ -1170,8 +1170,8 @@
 
 <div class="viewcode-block" id="create_poisson_laws_resource"><a class="viewcode-back" href="../../../api/discrete_optimization.rcpsp.html#discrete_optimization.rcpsp.rcpsp_model.create_poisson_laws_resource">[docs]</a><span class="k">def</span> <span class="nf">create_poisson_laws_resource</span><span class="p">(</span><span class="n">rcpsp_model</span><span class="p">:</span> <span class="n">RCPSPModel</span><span class="p">,</span> <span class="n">range_around_mean</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="n">poisson_dict</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="n">source</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">sink</span> <span class="o">=</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="n">source</span> <span class="o">=</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">source_task</span>
+    <span class="n">sink</span> <span class="o">=</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">sink_task</span>
     <span class="n">limit_resource</span> <span class="o">=</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">resources</span>
     <span class="n">resources</span> <span class="o">=</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">resources_list</span>
     <span class="n">resources_non_renewable</span> <span class="o">=</span> <span class="n">rcpsp_model</span><span class="o">.</span><span class="n">non_renewable_resources</span>
@@ -1276,7 +1276,10 @@
 <div class="viewcode-block" id="UncertainRCPSPModel.create_rcpsp_model"><a class="viewcode-back" href="../../../api/discrete_optimization.rcpsp.html#discrete_optimization.rcpsp.rcpsp_model.UncertainRCPSPModel.create_rcpsp_model">[docs]</a>    <span class="k">def</span> <span class="nf">create_rcpsp_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">method_robustification</span><span class="p">:</span> <span class="n">MethodRobustification</span><span class="p">):</span>
         <span class="n">model</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_rcpsp_model</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">activity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">probas</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">activity</span> <span class="ow">in</span> <span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">base_rcpsp_model</span><span class="o">.</span><span class="n">n_jobs</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">}:</span>
+            <span class="k">if</span> <span class="n">activity</span> <span class="ow">in</span> <span class="p">{</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_rcpsp_model</span><span class="o">.</span><span class="n">source_task</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_rcpsp_model</span><span class="o">.</span><span class="n">sink_task</span><span class="p">,</span>
+            <span class="p">}:</span>
                 <span class="k">continue</span>
             <span class="k">for</span> <span class="n">mode</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">probas</span><span class="p">[</span><span class="n">activity</span><span class="p">]:</span>
                 <span class="k">for</span> <span class="n">detail</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">probas</span><span class="p">[</span><span class="n">activity</span><span class="p">][</span><span class="n">mode</span><span class="p">]:</span>
