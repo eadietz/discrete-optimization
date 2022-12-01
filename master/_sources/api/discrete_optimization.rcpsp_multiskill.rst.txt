@@ -37,6 +37,14 @@ discrete\_optimization.rcpsp\_multiskill.rcpsp\_multiskill module
    :undoc-members:
    :show-inheritance:
 
+discrete\_optimization.rcpsp\_multiskill.rcpsp\_multiskill\_mspsp\_parser module
+--------------------------------------------------------------------------------
+
+.. automodule:: discrete_optimization.rcpsp_multiskill.rcpsp_multiskill_mspsp_parser
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 discrete\_optimization.rcpsp\_multiskill.rcpsp\_multiskill\_parser module
 -------------------------------------------------------------------------
 

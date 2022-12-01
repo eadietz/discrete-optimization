@@ -70,6 +70,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#discrete_optimization.datasets.fetch_all_datasets"><code class="docutils literal notranslate"><span class="pre">fetch_all_datasets()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#discrete_optimization.datasets.fetch_data_from_coursera"><code class="docutils literal notranslate"><span class="pre">fetch_data_from_coursera()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#discrete_optimization.datasets.fetch_data_from_imopse"><code class="docutils literal notranslate"><span class="pre">fetch_data_from_imopse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#discrete_optimization.datasets.fetch_data_from_mslib_repo"><code class="docutils literal notranslate"><span class="pre">fetch_data_from_mslib_repo()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#discrete_optimization.datasets.fetch_data_from_psplib"><code class="docutils literal notranslate"><span class="pre">fetch_data_from_psplib()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#discrete_optimization.datasets.get_data_home"><code class="docutils literal notranslate"><span class="pre">get_data_home()</span></code></a></li>
 </ul>
@@ -1483,6 +1484,11 @@
 <li class="toctree-l3"><a class="reference internal" href="discrete_optimization.rcpsp_multiskill.html#discrete_optimization.rcpsp_multiskill.rcpsp_multiskill.tree"><code class="docutils literal notranslate"><span class="pre">tree()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="discrete_optimization.rcpsp_multiskill.html#module-discrete_optimization.rcpsp_multiskill.rcpsp_multiskill_mspsp_parser">discrete_optimization.rcpsp_multiskill.rcpsp_multiskill_mspsp_parser module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="discrete_optimization.rcpsp_multiskill.html#discrete_optimization.rcpsp_multiskill.rcpsp_multiskill_mspsp_parser.get_data_available_mspsp"><code class="docutils literal notranslate"><span class="pre">get_data_available_mspsp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="discrete_optimization.rcpsp_multiskill.html#discrete_optimization.rcpsp_multiskill.rcpsp_multiskill_mspsp_parser.parse_dzn_file"><code class="docutils literal notranslate"><span class="pre">parse_dzn_file()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="discrete_optimization.rcpsp_multiskill.html#module-discrete_optimization.rcpsp_multiskill.rcpsp_multiskill_parser">discrete_optimization.rcpsp_multiskill.rcpsp_multiskill_parser module</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="discrete_optimization.rcpsp_multiskill.html#discrete_optimization.rcpsp_multiskill.rcpsp_multiskill_parser.get_data_available"><code class="docutils literal notranslate"><span class="pre">get_data_available()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="discrete_optimization.rcpsp_multiskill.html#discrete_optimization.rcpsp_multiskill.rcpsp_multiskill_parser.parse_file"><code class="docutils literal notranslate"><span class="pre">parse_file()</span></code></a></li>
@@ -1734,6 +1740,20 @@
 <span class="sig-prename descclassname"><span class="pre">discrete_optimization.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_data_from_imopse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/discrete_optimization/datasets.html#fetch_data_from_imopse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#discrete_optimization.datasets.fetch_data_from_imopse" title="Permalink to this definition"></a></dt>
 <dd><p>Fetch data from iMOPSE for rcpsp_multiskill examples.</p>
 <p>cf <a class="reference external" href="http://imopse.ii.pwr.wroc.pl/download.html">http://imopse.ii.pwr.wroc.pl/download.html</a></p>
+<dl class="simple">
+<dt>Params:</dt><dd><dl class="simple">
+<dt>data_home: Specify the cache folder for the datasets. By default</dt><dd><p>all discrete-optimization data is stored in ‘~/discrete_optimization_data’ subfolders.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="discrete_optimization.datasets.fetch_data_from_mslib_repo">
+<span class="sig-prename descclassname"><span class="pre">discrete_optimization.datasets.</span></span><span class="sig-name descname"><span class="pre">fetch_data_from_mslib_repo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_home</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/discrete_optimization/datasets.html#fetch_data_from_mslib_repo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#discrete_optimization.datasets.fetch_data_from_mslib_repo" title="Permalink to this definition"></a></dt>
+<dd><p>Fetch data from youngkd repo. (for multiskill rcpsp)</p>
+<p><a class="reference external" href="https://github.com/youngkd/MSPSP-InstLib">https://github.com/youngkd/MSPSP-InstLib</a></p>
 <dl class="simple">
 <dt>Params:</dt><dd><dl class="simple">
 <dt>data_home: Specify the cache folder for the datasets. By default</dt><dd><p>all discrete-optimization data is stored in ‘~/discrete_optimization_data’ subfolders.</p>
