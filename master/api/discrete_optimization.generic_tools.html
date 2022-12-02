@@ -459,6 +459,11 @@
 <dd><p>Bases: <a class="reference internal" href="#discrete_optimization.generic_tools.do_solver.SolverDO" title="discrete_optimization.generic_tools.do_solver.SolverDO"><code class="xref py py-class docutils literal notranslate"><span class="pre">SolverDO</span></code></a></p>
 <p>Additional function to be implemented by a CP Solver.</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="discrete_optimization.generic_tools.cp_tools.CPSolver.get_status_solver">
+<span class="sig-name descname"><span class="pre">get_status_solver</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#discrete_optimization.generic_tools.cp_tools.StatusSolver" title="discrete_optimization.generic_tools.cp_tools.StatusSolver"><span class="pre">StatusSolver</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/discrete_optimization/generic_tools/cp_tools.html#CPSolver.get_status_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#discrete_optimization.generic_tools.cp_tools.CPSolver.get_status_solver" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="discrete_optimization.generic_tools.cp_tools.CPSolver.init_model">
 <em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">init_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/discrete_optimization/generic_tools/cp_tools.html#CPSolver.init_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#discrete_optimization.generic_tools.cp_tools.CPSolver.init_model" title="Permalink to this definition"></a></dt>
 <dd><p>Instantiate a CP model instance</p>
@@ -491,6 +496,11 @@
 <p>Returns (ResultStorage): a result object containing potentially a pool of solutions
 to a discrete-optimization problem</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="discrete_optimization.generic_tools.cp_tools.CPSolver.status_solver">
+<span class="sig-name descname"><span class="pre">status_solver</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#discrete_optimization.generic_tools.cp_tools.StatusSolver" title="discrete_optimization.generic_tools.cp_tools.StatusSolver"><span class="pre">StatusSolver</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#discrete_optimization.generic_tools.cp_tools.CPSolver.status_solver" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -662,6 +672,33 @@ to a discrete-optimization problem</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="discrete_optimization.generic_tools.cp_tools.SignEnum.UP">
 <span class="sig-name descname"><span class="pre">UP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'&gt;'</span></em><a class="headerlink" href="#discrete_optimization.generic_tools.cp_tools.SignEnum.UP" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="discrete_optimization.generic_tools.cp_tools.StatusSolver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">discrete_optimization.generic_tools.cp_tools.</span></span><span class="sig-name descname"><span class="pre">StatusSolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/discrete_optimization/generic_tools/cp_tools.html#StatusSolver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#discrete_optimization.generic_tools.cp_tools.StatusSolver" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="discrete_optimization.generic_tools.cp_tools.StatusSolver.OPTIMAL">
+<span class="sig-name descname"><span class="pre">OPTIMAL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'OPTIMAL'</span></em><a class="headerlink" href="#discrete_optimization.generic_tools.cp_tools.StatusSolver.OPTIMAL" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="discrete_optimization.generic_tools.cp_tools.StatusSolver.SATISFIED">
+<span class="sig-name descname"><span class="pre">SATISFIED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'SATISFIED'</span></em><a class="headerlink" href="#discrete_optimization.generic_tools.cp_tools.StatusSolver.SATISFIED" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="discrete_optimization.generic_tools.cp_tools.StatusSolver.UNKNOWN">
+<span class="sig-name descname"><span class="pre">UNKNOWN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNKNOWN'</span></em><a class="headerlink" href="#discrete_optimization.generic_tools.cp_tools.StatusSolver.UNKNOWN" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="discrete_optimization.generic_tools.cp_tools.StatusSolver.UNSATISFIABLE">
+<span class="sig-name descname"><span class="pre">UNSATISFIABLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'UNSATISFIABLE'</span></em><a class="headerlink" href="#discrete_optimization.generic_tools.cp_tools.StatusSolver.UNSATISFIABLE" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
