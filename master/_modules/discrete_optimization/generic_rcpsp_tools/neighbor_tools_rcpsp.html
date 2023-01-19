@@ -1,16 +1,36 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>discrete_optimization.generic_rcpsp_tools.neighbor_tools_rcpsp &mdash; discrete-optimization master
- documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+  <title>discrete_optimization.generic_rcpsp_tools.neighbor_tools_rcpsp &mdash; discrete-optimization master documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
@@ -18,22 +38,41 @@
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/versions.js"></script>
-    <script src="../../../_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../../../index.html" class="icon icon-home"> discrete-optimization
+          
+
+          
           </a>
+
+          
+            
+            
               <div class="version">
                 master
-
               </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -41,7 +80,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
@@ -52,30 +102,69 @@
 <li class="toctree-l1"><a class="reference external" href="https://github.com/airbus/discrete-optimization">Github</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">discrete-optimization</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content style-external-links">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">discrete_optimization.generic_rcpsp_tools.neighbor_tools_rcpsp</li>
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>discrete_optimization.generic_rcpsp_tools.neighbor_tools_rcpsp</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   <h1>Source code for discrete_optimization.generic_rcpsp_tools.neighbor_tools_rcpsp</h1><div class="highlight"><pre>
 <span></span><span class="c1">#  Copyright (c) 2022 AIRBUS and its affiliates.</span>
 <span class="c1">#  This source code is licensed under the MIT license found in the</span>
@@ -636,23 +725,23 @@
         <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
     <span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        int: nb_move=&quot;&quot;&quot;</span>
         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nb_moves</span><span class="p">)</span>
-        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        set of int: MOVES=0..nb_move;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        array[Units, Act] of var bool: changed;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint sum(w in Units, a in Act)(bool2int(changed[w, a]))&lt;=nb_move;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint forall(w in Units, a in Act)(changed[w, a]-&gt;unit_used[w, a]==ref_unit_used_not[w, a]);</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint forall(w in Units, a in Act)(not changed[w, a]-&gt;unit_used[w, a]==not ref_unit_used_not[w, a]);</span><span class="se">\n</span><span class="s2"></span>
+        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;;</span><span class="se">\n</span>
+<span class="s2">        set of int: MOVES=0..nb_move;</span><span class="se">\n</span>
+<span class="s2">        array[Units, Act] of var bool: changed;</span><span class="se">\n</span>
+<span class="s2">        constraint sum(w in Units, a in Act)(bool2int(changed[w, a]))&lt;=nb_move;</span><span class="se">\n</span>
+<span class="s2">        constraint forall(w in Units, a in Act)(changed[w, a]-&gt;unit_used[w, a]==ref_unit_used_not[w, a]);</span><span class="se">\n</span>
+<span class="s2">        constraint forall(w in Units, a in Act)(not changed[w, a]-&gt;unit_used[w, a]==not ref_unit_used_not[w, a]);</span><span class="se">\n</span>
 <span class="s2">        array[Units, Act] of bool: ref_unit_used_not=array2d(Units, Act, &quot;&quot;&quot;</span>
         <span class="o">+</span> <span class="n">stringit</span>
-        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;);</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        array[Units] of int: unit_usage=[sum(i in Act)(bool2int(not ref_unit_used_not[w, i])) | w in Units];</span><span class="se">\n</span><span class="s2"></span>
+        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;);</span><span class="se">\n</span>
+<span class="s2">        array[Units] of int: unit_usage=[sum(i in Act)(bool2int(not ref_unit_used_not[w, i])) | w in Units];</span><span class="se">\n</span>
 <span class="s2">        </span><span class="si">%c</span><span class="s2">onstraint forall(w in Units)(sum(row(unit_used, w))&lt;=unit_usage[w]+nb_move/\sum(row(unit_used, w))</span>
-<span class="s2">        %                              &gt;=unit_usage[w]-nb_move);</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        </span><span class="si">%c</span><span class="s2">onstraint forall(w in Units)(sum(i in Act where not ref_unit_used_not[w, i])(bool2int(unit_used[w, i]))&gt;=unit_usage[w]-nb_move);</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint sum(w in Units, a in Act)(unit_used[w, a]==ref_unit_used_not[w, a])&lt;=nb_move;</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">        %                              &gt;=unit_usage[w]-nb_move);</span><span class="se">\n</span>
+<span class="s2">        </span><span class="si">%c</span><span class="s2">onstraint forall(w in Units)(sum(i in Act where not ref_unit_used_not[w, i])(bool2int(unit_used[w, i]))&gt;=unit_usage[w]-nb_move);</span><span class="se">\n</span>
+<span class="s2">        constraint sum(w in Units, a in Act)(unit_used[w, a]==ref_unit_used_not[w, a])&lt;=nb_move;</span><span class="se">\n</span>
 <span class="s2">        &quot;&quot;&quot;</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">s</span></div>
@@ -689,20 +778,20 @@
         <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
     <span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        int: nb_move=&quot;&quot;&quot;</span>
         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nb_moves</span><span class="p">)</span>
-        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        set of int: MOVES=0..nb_move;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        array[Units, Tasks, PREEMPTIVE] of var bool: changed;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint sum(changed)&lt;=nb_move;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint forall(w in Units, a in Tasks, j in PREEMPTIVE)(changed[w, a, j]-&gt;unit_used_preemptive[w, a, j]==ref_unit_used_not[w, a, j]);</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint forall(w in Units, a in Tasks, j in PREEMPTIVE)(not changed[w, a, j]-&gt;unit_used_preemptive[w, a, j]==not ref_unit_used_not[w, a, j]);</span><span class="se">\n</span><span class="s2"></span>
+        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;;</span><span class="se">\n</span>
+<span class="s2">        set of int: MOVES=0..nb_move;</span><span class="se">\n</span>
+<span class="s2">        array[Units, Tasks, PREEMPTIVE] of var bool: changed;</span><span class="se">\n</span>
+<span class="s2">        constraint sum(changed)&lt;=nb_move;</span><span class="se">\n</span>
+<span class="s2">        constraint forall(w in Units, a in Tasks, j in PREEMPTIVE)(changed[w, a, j]-&gt;unit_used_preemptive[w, a, j]==ref_unit_used_not[w, a, j]);</span><span class="se">\n</span>
+<span class="s2">        constraint forall(w in Units, a in Tasks, j in PREEMPTIVE)(not changed[w, a, j]-&gt;unit_used_preemptive[w, a, j]==not ref_unit_used_not[w, a, j]);</span><span class="se">\n</span>
 <span class="s2">        array[Units, Tasks, PREEMPTIVE] of bool: ref_unit_used_not=array3d(Units, Tasks, PREEMPTIVE, &quot;&quot;&quot;</span>
         <span class="o">+</span> <span class="n">stringit</span>
-        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;);</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        array[Units] of int: unit_usage=[sum(i in Tasks, j in PREEMPTIVE)(bool2int(not ref_unit_used_not[w, i, j])) | w in Units];</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint sum(w in Units, a in Tasks, j in PREEMPTIVE)(unit_used_preemptive[w, a, j]==ref_unit_used_not[w, a, j])&lt;=nb_move;</span><span class="se">\n</span><span class="s2"></span>
+        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;);</span><span class="se">\n</span>
+<span class="s2">        array[Units] of int: unit_usage=[sum(i in Tasks, j in PREEMPTIVE)(bool2int(not ref_unit_used_not[w, i, j])) | w in Units];</span><span class="se">\n</span>
+<span class="s2">        constraint sum(w in Units, a in Tasks, j in PREEMPTIVE)(unit_used_preemptive[w, a, j]==ref_unit_used_not[w, a, j])&lt;=nb_move;</span><span class="se">\n</span>
 <span class="s2">        &quot;&quot;&quot;</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">s</span></div>
@@ -734,39 +823,39 @@
         <span class="o">+</span> <span class="s2">&quot;]&quot;</span>
     <span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        int: nb_move=&quot;&quot;&quot;</span>
         <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">nb_moves</span><span class="p">)</span>
-        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        set of int: UnitsWithZero = 0..nb_units;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        set of int: ActsWithZero = 0..nb_act;</span><span class="se">\n</span><span class="s2"></span>
+        <span class="o">+</span> <span class="s2">&quot;&quot;&quot;;</span><span class="se">\n</span>
+<span class="s2">        set of int: UnitsWithZero = 0..nb_units;</span><span class="se">\n</span>
+<span class="s2">        set of int: ActsWithZero = 0..nb_act;</span><span class="se">\n</span>
 <span class="s2">        array[Units, Act] of bool: ref_unit_used==array2d(Units, Act, &quot;&quot;&quot;</span>
         <span class="o">+</span> <span class="n">stringit</span>
         <span class="o">+</span> <span class="s2">&quot;&quot;&quot;)</span><span class="se">\n</span><span class="s2">;</span>
-<span class="s2">        array[1..nb_move, 1..2] of var UnitsWithZero: moves_unit;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        array[1..nb_move, 1..2] of var ActsWithZero: moves_act;</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint forall(i in 1..nb_move)(moves_unit[i, 1]==0&lt;-&gt;moves_act[i, 1]==0 /\ moves_act[i, 2]==0);</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">        array[1..nb_move, 1..2] of var UnitsWithZero: moves_unit;</span><span class="se">\n</span>
+<span class="s2">        array[1..nb_move, 1..2] of var ActsWithZero: moves_act;</span><span class="se">\n</span>
+<span class="s2">        constraint forall(i in 1..nb_move)(moves_unit[i, 1]==0&lt;-&gt;moves_act[i, 1]==0 /\ moves_act[i, 2]==0);</span><span class="se">\n</span>
 <span class="s2">        constraint forall(i in 1..nb_move)(moves_unit[i, 1]!=0-&gt;(moves_act[i,1]!=0</span>
 <span class="s2">                                           /\ ref_unit_used[max([1, moves_unit[i,1]]), max([1, moves_act[i,1]])]</span>
 <span class="s2">                                           /\ moves_act[i,2] != 0 /\ ref_unit_used[max([1, moves_unit[i,2]]),</span>
 <span class="s2">                                                                                   max([1, moves_act[i,2]])] /</span><span class="se">\</span>
 <span class="s2">                                           unit_used[max([1, moves_unit[i, 1]]), max([1,moves_act[i,2]])] /</span><span class="se">\</span>
-<span class="s2">                                           unit_used[max([1, moves_unit[i, 2]]), max([1, moves_act[i,1]])]));</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint forall(i in 1..nb_move)(moves_unit[i, 1]&lt;=moves_unit[i,2]);</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint forall(i in 1..nb_move)(moves_unit[i, 1]!=0-&gt;moves_unit[i, 2]&gt;moves_unit[i, 1]);</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">                                           unit_used[max([1, moves_unit[i, 2]]), max([1, moves_act[i,1]])]));</span><span class="se">\n</span>
+<span class="s2">        constraint forall(i in 1..nb_move)(moves_unit[i, 1]&lt;=moves_unit[i,2]);</span><span class="se">\n</span>
+<span class="s2">        constraint forall(i in 1..nb_move)(moves_unit[i, 1]!=0-&gt;moves_unit[i, 2]&gt;moves_unit[i, 1]);</span><span class="se">\n</span>
 <span class="s2">        include &quot;decreasing.mzn&quot;;</span>
-<span class="s2">        constraint decreasing([moves_unit[j, 1]| j in 1..nb_move]);</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">        constraint decreasing([moves_unit[j, 1]| j in 1..nb_move]);</span><span class="se">\n</span>
 <span class="s2">        constraint forall(w in Units)(if not exists(j in 1..nb_move, i in 1..2)(moves_unit[j, i]==w) then</span>
 <span class="s2">                                         forall(a in Act)(unit_used[w, a]==ref_unit_used[w,a])</span>
 <span class="s2">                                      else</span>
 <span class="s2">                                        true</span>
-<span class="s2">                                      endif);</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">                                      endif);</span><span class="se">\n</span>
 <span class="s2">        constraint forall(a in Act)(if not exists(j in 1..nb_move, i in 1..2)(moves_act[j, i]==a) then</span>
 <span class="s2">                                       forall(w in Units)(unit_used[w, a]==ref_unit_used[w,a])</span>
 <span class="s2">                                    else</span>
 <span class="s2">                                       true</span>
-<span class="s2">                                    endif);</span><span class="se">\n</span><span class="s2"></span>
-<span class="s2">        constraint forall(w in Units, a in Act)(bool2int(unit_used[w,a])!=ref_unit_used[w, a])!=2*nb_move;</span><span class="se">\n</span><span class="s2"></span>
+<span class="s2">                                    endif);</span><span class="se">\n</span>
+<span class="s2">        constraint forall(w in Units, a in Act)(bool2int(unit_used[w,a])!=ref_unit_used[w, a])!=2*nb_move;</span><span class="se">\n</span>
 <span class="s2">        &quot;&quot;&quot;</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">s</span></div>
@@ -1054,7 +1143,7 @@
     <span class="k">def</span> <span class="nf">find_subtasks</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">current_solution</span><span class="p">:</span> <span class="n">ANY_SOLUTION</span><span class="p">,</span> <span class="n">subtasks</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="n">Hashable</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Set</span><span class="p">[</span><span class="n">Hashable</span><span class="p">],</span> <span class="n">Set</span><span class="p">[</span><span class="n">Hashable</span><span class="p">]]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Split the scheduling task set in 2 part, it can then be used by constraint handler to introduce different</span>
 <span class="sd">        constraints in those two subsets. Usually the first returned set will be considered</span>
 <span class="sd">        like the subproblem in LNS</span>
@@ -1078,7 +1167,7 @@
 
 
 <div class="viewcode-block" id="NeighborBuilderSubPart"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_rcpsp_tools.html#discrete_optimization.generic_rcpsp_tools.neighbor_tools_rcpsp.NeighborBuilderSubPart">[docs]</a><span class="k">class</span> <span class="nc">NeighborBuilderSubPart</span><span class="p">(</span><span class="n">NeighborBuilder</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Cut the schedule in different subpart in the increasing order of the schedule.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1881,31 +1970,39 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Airbus.</p>
-  </div>
+    <p>
+        &#169; Copyright 2022, Airbus.
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
   
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Versions</span>
       v: master
-
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -1913,11 +2010,18 @@
       </dl>
     </div>
   </div>
-<script>
+
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

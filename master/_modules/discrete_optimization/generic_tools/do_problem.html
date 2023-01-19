@@ -1,16 +1,36 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>discrete_optimization.generic_tools.do_problem &mdash; discrete-optimization master
- documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+  <title>discrete_optimization.generic_tools.do_problem &mdash; discrete-optimization master documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
@@ -18,22 +38,41 @@
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/versions.js"></script>
-    <script src="../../../_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../../../index.html" class="icon icon-home"> discrete-optimization
+          
+
+          
           </a>
+
+          
+            
+            
               <div class="version">
                 master
-
               </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -41,7 +80,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
@@ -52,30 +102,69 @@
 <li class="toctree-l1"><a class="reference external" href="https://github.com/airbus/discrete-optimization">Github</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">discrete-optimization</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content style-external-links">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">discrete_optimization.generic_tools.do_problem</li>
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>discrete_optimization.generic_tools.do_problem</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   <h1>Source code for discrete_optimization.generic_tools.do_problem</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Base module for the problem implementation in discrete-optimization library.&quot;&quot;&quot;</span>
 
@@ -98,7 +187,7 @@
 
 
 <div class="viewcode-block" id="TypeAttribute"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.TypeAttribute">[docs]</a><span class="k">class</span> <span class="nc">TypeAttribute</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum class to specify how are defined the attributes of a Solution.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class to specify how are defined the attributes of a Solution.</span>
 
 <span class="sd">    This specification will be particularly usefull if you want to give a try to local search algorithms, which will use</span>
 <span class="sd">    the information to use the right local moves.</span>
@@ -118,14 +207,14 @@
 
 
 <div class="viewcode-block" id="ModeOptim"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ModeOptim">[docs]</a><span class="k">class</span> <span class="nc">ModeOptim</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum class to specify minimization or maximization problems.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class to specify minimization or maximization problems.&quot;&quot;&quot;</span>
 
     <span class="n">MAXIMIZATION</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">MINIMIZATION</span> <span class="o">=</span> <span class="mi">1</span></div>
 
 
 <div class="viewcode-block" id="EncodingRegister"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.EncodingRegister">[docs]</a><span class="k">class</span> <span class="nc">EncodingRegister</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Placeholder class where the Solution definition is defined.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Placeholder class where the Solution definition is defined.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        dict_attribute_to_type (Dict[str, Any]): specifies the encoding of a solution object.</span>
@@ -149,7 +238,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dict_attribute_to_type</span> <span class="o">=</span> <span class="n">dict_attribute_to_type</span>
 
 <div class="viewcode-block" id="EncodingRegister.get_types"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.EncodingRegister.get_types">[docs]</a>    <span class="k">def</span> <span class="nf">get_types</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">TypeAttribute</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Returns all the TypeAttribute that are present in our encoding.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns all the TypeAttribute that are present in our encoding.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">[</span>
             <span class="n">t</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_attribute_to_type</span>
@@ -160,14 +249,14 @@
         <span class="k">return</span> <span class="s2">&quot;Encoding : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_attribute_to_type</span><span class="p">)</span>
 
 <div class="viewcode-block" id="EncodingRegister.lower_bound_vector_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.EncodingRegister.lower_bound_vector_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">lower_bound_vector_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding_name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return for an encoding that is of type LIST_INTEGER or associated, the lower bound vector.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return for an encoding that is of type LIST_INTEGER or associated, the lower bound vector.</span>
 <span class="sd">        Examples: if the vector should contains value higher or equal to 1, the function will return a list full of 1.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dict_encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_attribute_to_type</span><span class="p">[</span><span class="n">encoding_name</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">lower_bound_vector_encoding_from_dict</span><span class="p">(</span><span class="n">dict_encoding</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EncodingRegister.upper_bound_vector_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.EncodingRegister.upper_bound_vector_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">upper_bound_vector_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding_name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Return for an encoding that is of type LIST_INTEGER or associated, the upper bound vector.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return for an encoding that is of type LIST_INTEGER or associated, the upper bound vector.</span>
 <span class="sd">        Examples: if the vector should contains value higher or equal to 1, the function will return a list full of 1.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dict_encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_attribute_to_type</span><span class="p">[</span><span class="n">encoding_name</span><span class="p">]</span>
@@ -189,7 +278,7 @@
 
 
 <div class="viewcode-block" id="upper_bound_vector_encoding_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.upper_bound_vector_encoding_from_dict">[docs]</a><span class="k">def</span> <span class="nf">upper_bound_vector_encoding_from_dict</span><span class="p">(</span><span class="n">dict_encoding</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return for an encoding that is of type LIST_INTEGER or associated, the upper bound vector.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return for an encoding that is of type LIST_INTEGER or associated, the upper bound vector.</span>
 
 <span class="sd">    Examples: if the vector should contains value higher or equal to 1, the function will return a list full of 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -215,7 +304,7 @@
 
 
 <div class="viewcode-block" id="ObjectiveHandling"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ObjectiveHandling">[docs]</a><span class="k">class</span> <span class="nc">ObjectiveHandling</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum class specifying how should be built the objective criteria.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class specifying how should be built the objective criteria.</span>
 
 <span class="sd">    When SINGLE, it means the problem only returns one KPI to be minimize/maximize</span>
 <span class="sd">    When AGGREGATE, the problems has several KPI to combine with different ponderations.</span>
@@ -228,14 +317,14 @@
 
 
 <div class="viewcode-block" id="TypeObjective"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.TypeObjective">[docs]</a><span class="k">class</span> <span class="nc">TypeObjective</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum class to specify what should each KPI are.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class to specify what should each KPI are.&quot;&quot;&quot;</span>
 
     <span class="n">OBJECTIVE</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">PENALTY</span> <span class="o">=</span> <span class="mi">1</span></div>
 
 
 <div class="viewcode-block" id="ObjectiveRegister"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ObjectiveRegister">[docs]</a><span class="k">class</span> <span class="nc">ObjectiveRegister</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Store all the specification concerning the objective criteria.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Store all the specification concerning the objective criteria.</span>
 
 <span class="sd">    To specify the objective criteria, you&#39;re invited to choose the objective_sense (ModeOptim),</span>
 <span class="sd">    how the criteria is computed (ObjectiveHandling) and how are defined each KPI that are returned by the problem.evaluate() function.</span>
@@ -275,7 +364,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">dict_objective_to_doc</span> <span class="o">=</span> <span class="n">dict_objective_to_doc</span>
 
 <div class="viewcode-block" id="ObjectiveRegister.get_list_objective_and_default_weight"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ObjectiveRegister.get_list_objective_and_default_weight">[docs]</a>    <span class="k">def</span> <span class="nf">get_list_objective_and_default_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Flatten the list of kpi names and default weight.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Flatten the list of kpi names and default weight.</span>
 
 <span class="sd">        Returns: list of kpi names, list of default weight for the aggregated objective function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -294,11 +383,11 @@
 
 
 <div class="viewcode-block" id="Solution"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Solution">[docs]</a><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Base class for a solution to a Problem.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for a solution to a Problem.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Solution.copy"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Solution.copy">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Solution&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Deep copy of the solution.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deep copy of the solution.</span>
 
 <span class="sd">        The copy() function should return a new object containing the same input as the current object,</span>
 <span class="sd">        that respects the following expected behaviour:</span>
@@ -310,7 +399,7 @@
         <span class="o">...</span></div>
 
 <div class="viewcode-block" id="Solution.lazy_copy"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Solution.lazy_copy">[docs]</a>    <span class="k">def</span> <span class="nf">lazy_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Solution&quot;</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;This function should return a new object but possibly with mutable attributes from the original objects.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This function should return a new object but possibly with mutable attributes from the original objects.</span>
 
 <span class="sd">        A typical use of lazy copy is in evolutionary algorithms or genetic algorithm where the use of</span>
 <span class="sd">        local move don&#39;t need to do a possibly costly deepcopy.</span>
@@ -321,7 +410,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Solution.get_attribute_register"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Solution.get_attribute_register">[docs]</a>    <span class="k">def</span> <span class="nf">get_attribute_register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">problem</span><span class="p">:</span> <span class="s2">&quot;Problem&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EncodingRegister</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns how the Solution is encoded for the Problem.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns how the Solution is encoded for the Problem.</span>
 
 <span class="sd">        By default it returns the encoding register of the problem itself. However it can make sense that for the same</span>
 <span class="sd">        Problem, you have different Solution class with different encoding.</span>
@@ -332,7 +421,7 @@
 
 <div class="viewcode-block" id="Solution.change_problem"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Solution.change_problem">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">change_problem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_problem</span><span class="p">:</span> <span class="s2">&quot;Problem&quot;</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;If relevant to the optimisation problem, change the underlying problem instance for the solution.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;If relevant to the optimisation problem, change the underlying problem instance for the solution.</span>
 
 <span class="sd">        This method can be used to evaluate a solution for different instance of problems.</span>
 
@@ -346,11 +435,11 @@
 
 
 <div class="viewcode-block" id="Problem"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem">[docs]</a><span class="k">class</span> <span class="nc">Problem</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Base class for a discrete optimization problem.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for a discrete optimization problem.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Problem.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.evaluate">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">Solution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Evaluate a given solution object for the given problem.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate a given solution object for the given problem.</span>
 
 <span class="sd">        This method should return a dictionnary of KPI, that can be then used for mono or multiobjective optimization.</span>
 
@@ -363,7 +452,7 @@
         <span class="o">...</span></div>
 
 <div class="viewcode-block" id="Problem.evaluate_mobj"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.evaluate_mobj">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_mobj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">Solution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TupleFitness</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Default implementation of multiobjective evaluation.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Default implementation of multiobjective evaluation.</span>
 
 <span class="sd">        It consists in flattening the evaluate() function and put in an array.</span>
 <span class="sd">        User should probably custom this to be more efficient.</span>
@@ -380,7 +469,7 @@
         <span class="k">return</span> <span class="n">TupleFitness</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dict_values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Problem.evaluate_mobj_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.evaluate_mobj_from_dict">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_mobj_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
-        <span class="sd">&quot;&quot;&quot;Return an multiobjective fitness from a dictionnary of kpi (output of evaluate function).</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an multiobjective fitness from a dictionnary of kpi (output of evaluate function).</span>
 
 <span class="sd">        It consists in flattening the evaluate() function and put in an array.</span>
 <span class="sd">        User should probably custom this to be more efficient.</span>
@@ -397,7 +486,7 @@
 
 <div class="viewcode-block" id="Problem.satisfy"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.satisfy">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">satisfy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">Solution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Computes if a solution satisfies or not the constraints of the problem.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes if a solution satisfies or not the constraints of the problem.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            variable: the Solution object to check satisfability</span>
@@ -409,7 +498,7 @@
 
 <div class="viewcode-block" id="Problem.get_attribute_register"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.get_attribute_register">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_attribute_register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EncodingRegister</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns how the Solution should be encoded.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns how the Solution should be encoded.</span>
 
 <span class="sd">        Returns (EncodingRegister): content of the encoding of the solution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -417,7 +506,7 @@
 
 <div class="viewcode-block" id="Problem.get_solution_type"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.get_solution_type">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns the class implementation of a Solution.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the class implementation of a Solution.</span>
 
 <span class="sd">        Returns (class): class object of the given Problem.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -425,7 +514,7 @@
 
 <div class="viewcode-block" id="Problem.get_objective_register"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.get_objective_register">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">get_objective_register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObjectiveRegister</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns the objective definition.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the objective definition.</span>
 
 <span class="sd">        Returns (ObjectiveRegister): object defining the objective criteria.</span>
 
@@ -434,26 +523,26 @@
 
 
 <div class="viewcode-block" id="BaseMethodAggregating"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.BaseMethodAggregating">[docs]</a><span class="k">class</span> <span class="nc">BaseMethodAggregating</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Enum class used to specify how an evaluation of a multiscenario problem should be aggregated.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class used to specify how an evaluation of a multiscenario problem should be aggregated.&quot;&quot;&quot;</span>
 
     <span class="n">MEAN</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="sd">&quot;&quot;&quot;averaging over scenarios&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;averaging over scenarios&quot;&quot;&quot;</span>
     <span class="n">MEDIAN</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="sd">&quot;&quot;&quot;taking the median over scenarios&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;taking the median over scenarios&quot;&quot;&quot;</span>
     <span class="n">PERCENTILE</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="sd">&quot;&quot;&quot;take a given percentile over scenario (the percentile value is given as additional parameter</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;take a given percentile over scenario (the percentile value is given as additional parameter</span>
 <span class="sd">    in MethodAggregating object&quot;&quot;&quot;</span>
     <span class="n">PONDERATION</span> <span class="o">=</span> <span class="mi">3</span>
-    <span class="sd">&quot;&quot;&quot;ponderate the different scenario with different weights.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;ponderate the different scenario with different weights.</span>
 <span class="sd">    (MEAN would be equivalent with equal ponderation for example) &quot;&quot;&quot;</span>
     <span class="n">MIN</span> <span class="o">=</span> <span class="mi">4</span>
-    <span class="sd">&quot;&quot;&quot;Take the min value over the scenarios&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Take the min value over the scenarios&quot;&quot;&quot;</span>
     <span class="n">MAX</span> <span class="o">=</span> <span class="mi">5</span>
-    <span class="sd">&quot;&quot;&quot;Take the max value over the scenarios&quot;&quot;&quot;</span></div>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Take the max value over the scenarios&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="MethodAggregating"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.MethodAggregating">[docs]</a><span class="k">class</span> <span class="nc">MethodAggregating</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Specifies how the evaluation on a RobustProblem (i.e a multiscenario problem) should be aggregated in an objective criteria.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specifies how the evaluation on a RobustProblem (i.e a multiscenario problem) should be aggregated in an objective criteria.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        base_method_aggregating (BaseMethodAggregating): the base method for aggregation of evaluation</span>
@@ -474,7 +563,7 @@
 
 
 <div class="viewcode-block" id="RobustProblem"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem">[docs]</a><span class="k">class</span> <span class="nc">RobustProblem</span><span class="p">(</span><span class="n">Problem</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Problem built from a list of other problem (that should be considered as &quot;scenario&quot; optimisation problems).</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Problem built from a list of other problem (that should be considered as &quot;scenario&quot; optimisation problems).</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        list_problem (List[Problem]): List of Problems corresponding to different scenarios.</span>
@@ -490,7 +579,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">agg_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_vector</span><span class="p">()</span>
 
 <div class="viewcode-block" id="RobustProblem.aggregate_vector"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.aggregate_vector">[docs]</a>    <span class="k">def</span> <span class="nf">aggregate_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Returns the aggregation function coherent with the method_aggregating attribute.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the aggregation function coherent with the method_aggregating attribute.</span>
 
 <span class="sd">        Returns: aggregation function</span>
 
@@ -528,7 +617,7 @@
         <span class="k">return</span> <span class="n">func</span></div>
 
 <div class="viewcode-block" id="RobustProblem.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">Solution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Aggregated evaluate function.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Aggregated evaluate function.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            variable (Solution): Solution to evaluate on the different scenarios.</span>
@@ -545,7 +634,7 @@
         <span class="k">return</span> <span class="n">aggreg</span></div>
 
 <div class="viewcode-block" id="RobustProblem.satisfy"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.satisfy">[docs]</a>    <span class="k">def</span> <span class="nf">satisfy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">Solution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Computes if a solution satisfies or not the constraints of the problem.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes if a solution satisfies or not the constraints of the problem.</span>
 
 <span class="sd">        Warnings:</span>
 <span class="sd">            For RobustProblem, we consider than checking the satisfiability on the first scenario is enough.</span>
@@ -560,20 +649,20 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">satisfy</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="RobustProblem.get_attribute_register"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.get_attribute_register">[docs]</a>    <span class="k">def</span> <span class="nf">get_attribute_register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EncodingRegister</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;See ```Problem.get_attribute_register``` doc.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;See ```Problem.get_attribute_register``` doc.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_attribute_register</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="RobustProblem.get_solution_type"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;See ```Problem.get_solution_type``` doc.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;See ```Problem.get_solution_type``` doc.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_solution_type</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="RobustProblem.get_objective_register"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.get_objective_register">[docs]</a>    <span class="k">def</span> <span class="nf">get_objective_register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObjectiveRegister</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;See ```Problem.get_objective_register``` doc.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;See ```Problem.get_objective_register``` doc.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_objective_register</span><span class="p">()</span></div></div>
 
 
 <div class="viewcode-block" id="ParamsObjectiveFunction"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ParamsObjectiveFunction">[docs]</a><span class="k">class</span> <span class="nc">ParamsObjectiveFunction</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Alternative of Objective Register, but with the same idea of storing the objective handling, ponderation and sense of optimization.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Alternative of Objective Register, but with the same idea of storing the objective handling, ponderation and sense of optimization.</span>
 
 <span class="sd">    This class has been implemented after ObjectiveRegister to be able to call solvers and use user choice optimization.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -605,7 +694,7 @@
 
 
 <div class="viewcode-block" id="get_default_objective_setup"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.get_default_objective_setup">[docs]</a><span class="k">def</span> <span class="nf">get_default_objective_setup</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParamsObjectiveFunction</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Build ParamsObjectiveFunction from the ObjectiveRegister returned by the problem.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build ParamsObjectiveFunction from the ObjectiveRegister returned by the problem.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        problem (Problem): problem to build objective setup</span>
@@ -633,7 +722,7 @@
     <span class="n">Callable</span><span class="p">[[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">ParamsObjectiveFunction</span><span class="p">,</span>
 <span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;Build evaluation function from the problem and the params of objective function.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build evaluation function from the problem and the params of objective function.</span>
 
 <span class="sd">    If params_objective_function is None then we compute inside this function the default ParamsObjectiveFunction.</span>
 
@@ -660,7 +749,7 @@
     <span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span>
     <span class="n">params_objective_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ParamsObjectiveFunction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Solution</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="nb">float</span><span class="p">]]:</span>
-    <span class="sd">&quot;&quot;&quot;Build 2 eval functions based from the problem and params of objective function.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build 2 eval functions based from the problem and params of objective function.</span>
 
 <span class="sd">    The 2 eval function are callable with a Solution for the first one, and a Dict[str, float]</span>
 <span class="sd">    (output of Problem.evaluate function) for the second one. Those two eval function will return either a scalar for</span>
@@ -733,31 +822,39 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Airbus.</p>
-  </div>
+    <p>
+        &#169; Copyright 2022, Airbus.
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
   
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Versions</span>
       v: master
-
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -765,11 +862,18 @@
       </dl>
     </div>
   </div>
-<script>
+
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -1,16 +1,36 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>discrete_optimization.facility.facility_model &mdash; discrete-optimization master
- documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  
+  <title>discrete_optimization.facility.facility_model &mdash; discrete-optimization master documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
@@ -18,22 +38,41 @@
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/versions.js"></script>
-    <script src="../../../_static/js/theme.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav"> 
+<body class="wy-body-for-nav">
+
+   
   <div class="wy-grid-for-nav">
+    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
+          
+
+          
             <a href="../../../index.html" class="icon icon-home"> discrete-optimization
+          
+
+          
           </a>
+
+          
+            
+            
               <div class="version">
                 master
-
               </div>
+            
+          
+
+          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -41,7 +80,18 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
               <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
@@ -52,30 +102,69 @@
 <li class="toctree-l1"><a class="reference external" href="https://github.com/airbus/discrete-optimization">Github</a></li>
 </ul>
 
+            
+          
         </div>
+        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">discrete-optimization</a>
+        
       </nav>
 
+
       <div class="wy-nav-content">
+        
         <div class="rst-content style-external-links">
-          <div role="navigation" aria-label="Page navigation">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">discrete_optimization.facility.facility_model</li>
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>discrete_optimization.facility.facility_model</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
+        
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-             
+            
   <h1>Source code for discrete_optimization.facility.facility_model</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Implementation of the facility location problem with capacity constraint</span>
 <span class="sd">(https://en.wikipedia.org/wiki/Facility_location_problem#Capacitated_facility_location)</span>
@@ -112,7 +201,7 @@
 
 
 <div class="viewcode-block" id="FacilitySolution"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_model.FacilitySolution">[docs]</a><span class="k">class</span> <span class="nc">FacilitySolution</span><span class="p">(</span><span class="n">Solution</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Solution object for facility location</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solution object for facility location</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        problem (FacilityProblem): facility problem instance</span>
@@ -155,7 +244,7 @@
 
 
 <div class="viewcode-block" id="FacilityProblem"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_model.FacilityProblem">[docs]</a><span class="k">class</span> <span class="nc">FacilityProblem</span><span class="p">(</span><span class="n">Problem</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Base class for the facility problem.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for the facility problem.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        facility_count (int): number of facilities</span>
@@ -182,7 +271,7 @@
     <span class="k">def</span> <span class="nf">evaluate_customer_facility</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">facility</span><span class="p">:</span> <span class="n">Facility</span><span class="p">,</span> <span class="n">customer</span><span class="p">:</span> <span class="n">Customer</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Compute the cost of allocating a customer to a facility. This function is not implemented by default.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the cost of allocating a customer to a facility. This function is not implemented by default.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            facility (Facility): facility</span>
@@ -194,7 +283,7 @@
         <span class="o">...</span></div>
 
 <div class="viewcode-block" id="FacilityProblem.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_model.FacilityProblem.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">FacilitySolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>  <span class="c1"># type: ignore # avoid isinstance checks for efficiency</span>
-        <span class="sd">&quot;&quot;&quot;Computes the KPI of a FacilitySolution.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Computes the KPI of a FacilitySolution.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            variable (FacilitySolution): solution to evaluate</span>
@@ -214,7 +303,7 @@
         <span class="k">return</span> <span class="n">d</span></div>
 
 <div class="viewcode-block" id="FacilityProblem.evaluate_from_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_model.FacilityProblem.evaluate_from_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_from_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">int_vector</span><span class="p">,</span> <span class="n">encoding_name</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Evaluate function based on direct integer vector (used in GA algorithms only)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Evaluate function based on direct integer vector (used in GA algorithms only)</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            int_vector (List[int]): vector encoding the solution</span>
@@ -237,7 +326,7 @@
         <span class="k">return</span> <span class="n">objectives</span></div>
 
 <div class="viewcode-block" id="FacilityProblem.evaluate_cost"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_model.FacilityProblem.evaluate_cost">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_cost</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">FacilitySolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;Compute the allocation cost of the solution along with setup cost too.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the allocation cost of the solution along with setup cost too.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            variable (FacilitySolution): facility solution to evaluate.</span>
@@ -269,7 +358,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;cost&quot;</span><span class="p">:</span> <span class="n">cost</span><span class="p">,</span> <span class="s2">&quot;setup_cost&quot;</span><span class="p">:</span> <span class="n">setup_cost</span><span class="p">,</span> <span class="s2">&quot;details&quot;</span><span class="p">:</span> <span class="n">facility_details</span><span class="p">}</span></div>
 
 <div class="viewcode-block" id="FacilityProblem.satisfy"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_model.FacilityProblem.satisfy">[docs]</a>    <span class="k">def</span> <span class="nf">satisfy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">FacilitySolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># type: ignore # avoid isinstance checks for efficiency</span>
-        <span class="sd">&quot;&quot;&quot;Satisfaction function of a facility solution.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Satisfaction function of a facility solution.</span>
 
 <span class="sd">        We only check that the capacity constraint is fulfilled. We admit that the values of the vector are in the</span>
 <span class="sd">        allowed range.</span>
@@ -294,7 +383,7 @@
         <span class="k">return</span> <span class="n">EncodingRegister</span><span class="p">(</span><span class="n">dict_register</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="FacilityProblem.get_dummy_solution"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_model.FacilityProblem.get_dummy_solution">[docs]</a>    <span class="k">def</span> <span class="nf">get_dummy_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FacilitySolution</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Returns Dummy solution (that is not necessary fulfilling the constraints)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns Dummy solution (that is not necessary fulfilling the constraints)</span>
 
 <span class="sd">        All customers are allocated to the first facility (which usually will break the capacity constraint)</span>
 <span class="sd">        Returns (FacilitySolution): a dummy solution</span>
@@ -322,7 +411,7 @@
 
 
 <div class="viewcode-block" id="length"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_model.length">[docs]</a><span class="k">def</span> <span class="nf">length</span><span class="p">(</span><span class="n">point1</span><span class="p">:</span> <span class="n">Point</span><span class="p">,</span> <span class="n">point2</span><span class="p">:</span> <span class="n">Point</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Classic euclidian distance between two points.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Classic euclidian distance between two points.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        point1 (Point): origin point</span>
@@ -338,7 +427,7 @@
 <div class="viewcode-block" id="FacilityProblem2DPoints.evaluate_customer_facility"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_model.FacilityProblem2DPoints.evaluate_customer_facility">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_customer_facility</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">facility</span><span class="p">:</span> <span class="n">Facility</span><span class="p">,</span> <span class="n">customer</span><span class="p">:</span> <span class="n">Customer</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Implementation of a distance based cost for allocation of facility to customers.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Implementation of a distance based cost for allocation of facility to customers.</span>
 
 <span class="sd">        It uses the euclidian distance as cost.</span>
 
@@ -353,31 +442,39 @@
 </pre></div>
 
            </div>
+           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022, Airbus.</p>
-  </div>
+    <p>
+        &#169; Copyright 2022, Airbus.
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
         </div>
       </div>
+
     </section>
+
   </div>
   
   <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
     <span class="rst-current-version" data-toggle="rst-current-version">
       <span class="fa fa-book"> Versions</span>
       v: master
-
       <span class="fa fa-caret-down"></span>
     </span>
     <div class="rst-other-versions">
@@ -385,11 +482,18 @@
       </dl>
     </div>
   </div>
-<script>
+
+
+  <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>
