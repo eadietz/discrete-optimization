@@ -174,16 +174,18 @@
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">discrete_optimization.generic_tools.do_problem</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ModeOptim</span><span class="p">,</span>
+    <span class="n">ObjectiveDoc</span><span class="p">,</span>
     <span class="n">ObjectiveHandling</span><span class="p">,</span>
     <span class="n">ObjectiveRegister</span><span class="p">,</span>
     <span class="n">Problem</span><span class="p">,</span>
+    <span class="n">Solution</span><span class="p">,</span>
     <span class="n">TypeObjective</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.rcpsp.fast_function_rcpsp</span> <span class="kn">import</span> <span class="p">(</span>
@@ -496,11 +498,10 @@
 
 <div class="viewcode-block" id="RCPSPModelSpecialConstraints.get_objective_register"><a class="viewcode-back" href="../../../../api/discrete_optimization.rcpsp.specialized_rcpsp.html#discrete_optimization.rcpsp.specialized_rcpsp.rcpsp_specialized_constraints.RCPSPModelSpecialConstraints.get_objective_register">[docs]</a>    <span class="k">def</span> <span class="nf">get_objective_register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObjectiveRegister</span><span class="p">:</span>
         <span class="n">dict_objective</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;makespan&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span>
-            <span class="s2">&quot;constraint_penalty&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span>
-                <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span>
-            <span class="p">},</span>
+            <span class="s2">&quot;makespan&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="s2">&quot;constraint_penalty&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span>
+                <span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=-</span><span class="mf">100.0</span>
+            <span class="p">),</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">ObjectiveRegister</span><span class="p">(</span>
             <span class="n">objective_sense</span><span class="o">=</span><span class="n">ModeOptim</span><span class="o">.</span><span class="n">MAXIMIZATION</span><span class="p">,</span>
@@ -526,7 +527,7 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">sol</span></div>
 
-<div class="viewcode-block" id="RCPSPModelSpecialConstraints.get_solution_type"><a class="viewcode-back" href="../../../../api/discrete_optimization.rcpsp.specialized_rcpsp.html#discrete_optimization.rcpsp.specialized_rcpsp.rcpsp_specialized_constraints.RCPSPModelSpecialConstraints.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RCPSPModelSpecialConstraints.get_solution_type"><a class="viewcode-back" href="../../../../api/discrete_optimization.rcpsp.specialized_rcpsp.html#discrete_optimization.rcpsp.specialized_rcpsp.rcpsp_specialized_constraints.RCPSPModelSpecialConstraints.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">Solution</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">RCPSPSolutionSpecial</span></div></div>
 
 
@@ -750,11 +751,10 @@
 
 <div class="viewcode-block" id="RCPSPModelSpecialConstraintsPreemptive.get_objective_register"><a class="viewcode-back" href="../../../../api/discrete_optimization.rcpsp.specialized_rcpsp.html#discrete_optimization.rcpsp.specialized_rcpsp.rcpsp_specialized_constraints.RCPSPModelSpecialConstraintsPreemptive.get_objective_register">[docs]</a>    <span class="k">def</span> <span class="nf">get_objective_register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObjectiveRegister</span><span class="p">:</span>
         <span class="n">dict_objective</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;makespan&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span>
-            <span class="s2">&quot;constraint_penalty&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span>
-                <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">100</span><span class="p">,</span>
-            <span class="p">},</span>
+            <span class="s2">&quot;makespan&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="s2">&quot;constraint_penalty&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span>
+                <span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=-</span><span class="mf">100.0</span>
+            <span class="p">),</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">ObjectiveRegister</span><span class="p">(</span>
             <span class="n">objective_sense</span><span class="o">=</span><span class="n">ModeOptim</span><span class="o">.</span><span class="n">MAXIMIZATION</span><span class="p">,</span>
@@ -783,7 +783,7 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">sol</span></div>
 
-<div class="viewcode-block" id="RCPSPModelSpecialConstraintsPreemptive.get_solution_type"><a class="viewcode-back" href="../../../../api/discrete_optimization.rcpsp.specialized_rcpsp.html#discrete_optimization.rcpsp.specialized_rcpsp.rcpsp_specialized_constraints.RCPSPModelSpecialConstraintsPreemptive.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RCPSPModelSpecialConstraintsPreemptive.get_solution_type"><a class="viewcode-back" href="../../../../api/discrete_optimization.rcpsp.specialized_rcpsp.html#discrete_optimization.rcpsp.specialized_rcpsp.rcpsp_specialized_constraints.RCPSPModelSpecialConstraintsPreemptive.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">Solution</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">RCPSPSolutionSpecialPreemptive</span></div></div>
 
 

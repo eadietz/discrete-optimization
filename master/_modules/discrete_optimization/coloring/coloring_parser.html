@@ -180,7 +180,7 @@
 
 <div class="viewcode-block" id="get_data_available"><a class="viewcode-back" href="../../../api/discrete_optimization.coloring.html#discrete_optimization.coloring.coloring_parser.get_data_available">[docs]</a><span class="k">def</span> <span class="nf">get_data_available</span><span class="p">(</span>
     <span class="n">data_folder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">data_home</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">):</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get datasets available for coloring.</span>
 
 <span class="sd">    Params:</span>
@@ -204,7 +204,7 @@
     <span class="k">return</span> <span class="n">datasets</span></div>
 
 
-<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../../api/discrete_optimization.coloring.html#discrete_optimization.coloring.coloring_parser.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ColoringProblem</span><span class="p">:</span>
+<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../../api/discrete_optimization.coloring.html#discrete_optimization.coloring.coloring_parser.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">input_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ColoringProblem</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;From a text input, initialise a coloring problem instance.</span>
 
 <span class="sd">    Args:</span>
@@ -228,7 +228,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="parse_file"><a class="viewcode-back" href="../../../api/discrete_optimization.coloring.html#discrete_optimization.coloring.coloring_parser.parse_file">[docs]</a><span class="k">def</span> <span class="nf">parse_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ColoringProblem</span><span class="p">:</span>
+<div class="viewcode-block" id="parse_file"><a class="viewcode-back" href="../../../api/discrete_optimization.coloring.html#discrete_optimization.coloring.coloring_parser.parse_file">[docs]</a><span class="k">def</span> <span class="nf">parse_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ColoringProblem</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;From an absolute path to a coloring text file, return the corresponding coloring instance</span>
 <span class="sd">    Args:</span>
 <span class="sd">        file_path (str): absolute path to the file</span>

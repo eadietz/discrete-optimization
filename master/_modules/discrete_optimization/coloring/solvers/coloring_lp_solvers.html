@@ -174,7 +174,7 @@
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">mip</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
@@ -184,6 +184,7 @@
     <span class="n">ColoringProblem</span><span class="p">,</span>
     <span class="n">ColoringSolution</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">discrete_optimization.coloring.solvers.coloring_solver</span> <span class="kn">import</span> <span class="n">SolverColoring</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.coloring.solvers.greedy_coloring</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">GreedyColoring</span><span class="p">,</span>
     <span class="n">NXGreedyColoringMethod</span><span class="p">,</span>
@@ -227,7 +228,7 @@
 <span class="n">NeighborsConstraints</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span>
     <span class="n">Tuple</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Constr&quot;</span><span class="p">,</span> <span class="s2">&quot;QConstr&quot;</span><span class="p">,</span> <span class="s2">&quot;MConstr&quot;</span><span class="p">,</span> <span class="s2">&quot;GenConstr&quot;</span><span class="p">]</span>
 <span class="p">]</span>
-<span class="n">VariableDecision</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="s2">&quot;Var&quot;</span><span class="p">]]</span>
+<span class="n">VariableDecision</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="s2">&quot;Var&quot;</span><span class="p">,</span> <span class="n">mip</span><span class="o">.</span><span class="n">Var</span><span class="p">]]]</span>
 
 
 <div class="viewcode-block" id="ConstraintsDict"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_lp_solvers.ConstraintsDict">[docs]</a><span class="k">class</span> <span class="nc">ConstraintsDict</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
@@ -235,25 +236,25 @@
     <span class="n">constraints_neighbors</span><span class="p">:</span> <span class="n">NeighborsConstraints</span></div>
 
 
-<span class="k">class</span> <span class="nc">_BaseColoringLP</span><span class="p">(</span><span class="n">MilpSolver</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">_BaseColoringLP</span><span class="p">(</span><span class="n">MilpSolver</span><span class="p">,</span> <span class="n">SolverColoring</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for Coloring LP solvers.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">coloring_problem</span><span class="p">:</span> <span class="n">ColoringProblem</span><span class="p">,</span>
+        <span class="n">coloring_model</span><span class="p">:</span> <span class="n">ColoringProblem</span><span class="p">,</span>
         <span class="n">params_objective_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ParamsObjectiveFunction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span> <span class="o">=</span> <span class="n">coloring_problem</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span><span class="o">.</span><span class="n">number_of_nodes</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes_name</span>
+        <span class="n">SolverColoring</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coloring_model</span><span class="o">=</span><span class="n">coloring_model</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number_of_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">number_of_nodes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nodes_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">nodes_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index_nodes_name</span> <span class="o">=</span> <span class="p">{</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">nodes_name</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">)</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index_to_nodes_name</span> <span class="o">=</span> <span class="p">{</span>
             <span class="n">i</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes_name</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">)</span>
         <span class="p">}</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span><span class="o">.</span><span class="n">graph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variable_decision</span><span class="p">:</span> <span class="n">VariableDecision</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">one_color_constraints</span><span class="p">:</span> <span class="n">OneColorConstraints</span> <span class="o">=</span> <span class="p">{}</span>
@@ -275,11 +276,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">aggreg_from_dict</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span><span class="p">,</span>
         <span class="p">)</span> <span class="o">=</span> <span class="n">build_aggreg_function_and_params_objective</span><span class="p">(</span>
-            <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span><span class="p">,</span>
+            <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="p">,</span>
             <span class="n">params_objective_function</span><span class="o">=</span><span class="n">params_objective_function</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sense_optim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span><span class="o">.</span><span class="n">sense_function</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ColoringSolution</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="nf">retrieve_solutions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameters_milp</span><span class="p">:</span> <span class="n">ParametersMilp</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">parameters_milp</span><span class="o">.</span><span class="n">retrieve_all_solution</span><span class="p">:</span>
@@ -298,7 +299,7 @@
                     <span class="n">node</span> <span class="o">=</span> <span class="n">variable_decision_key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
                     <span class="n">color</span> <span class="o">=</span> <span class="n">variable_decision_key</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
                     <span class="n">colors</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">index_nodes_name</span><span class="p">[</span><span class="n">node</span><span class="p">]]</span> <span class="o">=</span> <span class="n">color</span>
-            <span class="n">solution</span> <span class="o">=</span> <span class="n">ColoringSolution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
+            <span class="n">solution</span> <span class="o">=</span> <span class="n">ColoringSolution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
             <span class="n">fit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggreg_from_sol</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
             <span class="n">list_solution_fits</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">solution</span><span class="p">,</span> <span class="n">fit</span><span class="p">))</span>
         <span class="k">return</span> <span class="n">ResultStorage</span><span class="p">(</span>
@@ -311,13 +312,13 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Coloring LP solver based on gurobipy library.</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        coloring_problem (ColoringProblem): coloring problem instance to solve</span>
+<span class="sd">        coloring_model (ColoringProblem): coloring problem instance to solve</span>
 <span class="sd">        params_objective_function (ParamsObjectiveFunction): objective function parameters</span>
 <span class="sd">                (however this is just used for the ResultStorage creation, not in the optimisation)</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ColoringLP.init_model"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_lp_solvers.ColoringLP.init_model">[docs]</a>    <span class="k">def</span> <span class="nf">init_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ColoringLP.init_model"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_lp_solvers.ColoringLP.init_model">[docs]</a>    <span class="k">def</span> <span class="nf">init_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the gurobi model.</span>
 
 <span class="sd">        Keyword Args:</span>
@@ -331,16 +332,29 @@
         <span class="k">if</span> <span class="n">greedy_start</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Computing greedy solution&quot;</span><span class="p">)</span>
             <span class="n">greedy_solver</span> <span class="o">=</span> <span class="n">GreedyColoring</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="p">,</span>
                 <span class="n">params_objective_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="n">result_store</span> <span class="o">=</span> <span class="n">greedy_solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="n">NXGreedyColoringMethod</span><span class="o">.</span><span class="n">best</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span> <span class="o">=</span> <span class="n">result_store</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">sol</span> <span class="o">=</span> <span class="n">greedy_solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span>
+                <span class="n">strategy</span><span class="o">=</span><span class="n">NXGreedyColoringMethod</span><span class="o">.</span><span class="n">best</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">get_best_solution</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">sol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;greedy_solver.solve(strategy=NXGreedyColoringMethod.best).get_best_solution() &quot;</span>
+                    <span class="s2">&quot;should not be None.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">ColoringSolution</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;greedy_solver.solve(strategy=NXGreedyColoringMethod.best).get_best_solution() &quot;</span>
+                    <span class="s2">&quot;should be a ColoringSolution.&quot;</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span> <span class="o">=</span> <span class="n">sol</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Get dummy solution&quot;</span><span class="p">)</span>
-            <span class="n">solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span><span class="o">.</span><span class="n">get_dummy_solution</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span> <span class="o">=</span> <span class="n">solution</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">get_dummy_solution</span><span class="p">()</span>
         <span class="n">nb_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span><span class="o">.</span><span class="n">nb_color</span>
+        <span class="k">if</span> <span class="n">nb_colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;self.start_solution.nb_color should not be None.&quot;</span><span class="p">)</span>
         <span class="n">color_model</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="s2">&quot;color&quot;</span><span class="p">)</span>
         <span class="n">colors_var</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="s2">&quot;Var&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">range_node</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">)</span>
@@ -364,7 +378,7 @@
             <span class="n">cliques</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cliques</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">cliques</span> <span class="o">=</span> <span class="p">[[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">()]</span>
-        <span class="n">cliques_constraint</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">cliques_constraint</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">index_c</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">opt</span> <span class="o">=</span> <span class="n">color_model</span><span class="o">.</span><span class="n">addVar</span><span class="p">(</span><span class="n">vtype</span><span class="o">=</span><span class="n">GRB</span><span class="o">.</span><span class="n">INTEGER</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">nb_colors</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">use_cliques</span><span class="p">:</span>
@@ -445,7 +459,7 @@
 
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        coloring_problem (ColoringProblem): coloring problem instance to solve</span>
+<span class="sd">        coloring_model (ColoringProblem): coloring problem instance to solve</span>
 <span class="sd">        params_objective_function (ParamsObjectiveFunction): objective function parameters</span>
 <span class="sd">                    (however this is just used for the ResultStorage creation, not in the optimisation)</span>
 <span class="sd">        milp_solver_name (MilpSolverName): backend solver to use (either CBC ou GRB)</span>
@@ -454,37 +468,48 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">coloring_problem</span><span class="p">:</span> <span class="n">ColoringProblem</span><span class="p">,</span>
+        <span class="n">coloring_model</span><span class="p">:</span> <span class="n">ColoringProblem</span><span class="p">,</span>
         <span class="n">params_objective_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ParamsObjectiveFunction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">milp_solver_name</span><span class="p">:</span> <span class="n">MilpSolverName</span> <span class="o">=</span> <span class="n">MilpSolverName</span><span class="o">.</span><span class="n">CBC</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">coloring_problem</span><span class="o">=</span><span class="n">coloring_problem</span><span class="p">,</span>
+            <span class="n">coloring_model</span><span class="o">=</span><span class="n">coloring_model</span><span class="p">,</span>
             <span class="n">params_objective_function</span><span class="o">=</span><span class="n">params_objective_function</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">milp_solver_name</span> <span class="o">=</span> <span class="n">milp_solver_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">solver_name</span> <span class="o">=</span> <span class="n">map_solver</span><span class="p">[</span><span class="n">milp_solver_name</span><span class="p">]</span>
 
-<div class="viewcode-block" id="ColoringLP_MIP.init_model"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_lp_solvers.ColoringLP_MIP.init_model">[docs]</a>    <span class="k">def</span> <span class="nf">init_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ColoringLP_MIP.init_model"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_lp_solvers.ColoringLP_MIP.init_model">[docs]</a>    <span class="k">def</span> <span class="nf">init_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">greedy_start</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;greedy_start&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="n">use_cliques</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;use_cliques&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">greedy_start</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Computing greedy solution&quot;</span><span class="p">)</span>
             <span class="n">greedy_solver</span> <span class="o">=</span> <span class="n">GreedyColoring</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="p">,</span>
                 <span class="n">params_objective_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span><span class="p">,</span>
             <span class="p">)</span>
-            <span class="n">result_store</span> <span class="o">=</span> <span class="n">greedy_solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span>
-                <span class="n">strategy</span><span class="o">=</span><span class="n">NXGreedyColoringMethod</span><span class="o">.</span><span class="n">best</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span> <span class="o">=</span> <span class="n">result_store</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">sol</span> <span class="o">=</span> <span class="n">greedy_solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span>
+                <span class="n">strategy</span><span class="o">=</span><span class="n">NXGreedyColoringMethod</span><span class="o">.</span><span class="n">best</span>
+            <span class="p">)</span><span class="o">.</span><span class="n">get_best_solution</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">sol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;greedy_solver.solve(strategy=NXGreedyColoringMethod.best).get_best_solution() &quot;</span>
+                    <span class="s2">&quot;should not be None.&quot;</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">ColoringSolution</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;greedy_solver.solve(strategy=NXGreedyColoringMethod.best).get_best_solution() &quot;</span>
+                    <span class="s2">&quot;should be a ColoringSolution.&quot;</span>
+                <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span> <span class="o">=</span> <span class="n">sol</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Get dummy solution&quot;</span><span class="p">)</span>
-            <span class="n">solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_problem</span><span class="o">.</span><span class="n">get_dummy_solution</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span> <span class="o">=</span> <span class="n">solution</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">get_dummy_solution</span><span class="p">()</span>
         <span class="n">nb_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_solution</span><span class="o">.</span><span class="n">nb_color</span>
+        <span class="k">if</span> <span class="n">nb_colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;self.start_solution.nb_color should not be None.&quot;</span><span class="p">)</span>
         <span class="n">color_model</span> <span class="o">=</span> <span class="n">mip</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span>
             <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="n">sense</span><span class="o">=</span><span class="n">mip</span><span class="o">.</span><span class="n">MINIMIZE</span><span class="p">,</span> <span class="n">solver_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">solver_name</span>
         <span class="p">)</span>
@@ -509,7 +534,7 @@
             <span class="n">cliques</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cliques</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">cliques</span> <span class="o">=</span> <span class="p">[[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">g</span><span class="o">.</span><span class="n">edges</span><span class="p">()]</span>
-        <span class="n">cliques_constraint</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">cliques_constraint</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">index_c</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">opt</span> <span class="o">=</span> <span class="n">color_model</span><span class="o">.</span><span class="n">add_var</span><span class="p">(</span><span class="n">var_type</span><span class="o">=</span><span class="n">INTEGER</span><span class="p">,</span> <span class="n">lb</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ub</span><span class="o">=</span><span class="n">nb_colors</span><span class="p">,</span> <span class="n">obj</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">use_cliques</span><span class="p">:</span>

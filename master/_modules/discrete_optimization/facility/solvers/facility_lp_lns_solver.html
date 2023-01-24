@@ -177,7 +177,10 @@
 
 <span class="kn">import</span> <span class="nn">mip</span>
 
-<span class="kn">from</span> <span class="nn">discrete_optimization.facility.facility_model</span> <span class="kn">import</span> <span class="n">FacilityProblem</span>
+<span class="kn">from</span> <span class="nn">discrete_optimization.facility.facility_model</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FacilityProblem</span><span class="p">,</span>
+    <span class="n">FacilitySolution</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.facility.solvers.facility_lp_solver</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">LP_Facility_Solver_PyMip</span><span class="p">,</span>
     <span class="n">MilpSolver</span><span class="p">,</span>
@@ -228,7 +231,7 @@
             <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="n">params_objective_function</span><span class="o">=</span><span class="n">params_objective_function</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="InitialFacilitySolution.get_starting_solution"><a class="viewcode-back" href="../../../../api/discrete_optimization.facility.solvers.html#discrete_optimization.facility.solvers.facility_lp_lns_solver.InitialFacilitySolution.get_starting_solution">[docs]</a>    <span class="k">def</span> <span class="nf">get_starting_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="InitialFacilitySolution.get_starting_solution"><a class="viewcode-back" href="../../../../api/discrete_optimization.facility.solvers.html#discrete_optimization.facility.solvers.facility_lp_lns_solver.InitialFacilitySolution.get_starting_solution">[docs]</a>    <span class="k">def</span> <span class="nf">get_starting_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_method</span> <span class="o">==</span> <span class="n">InitialFacilityMethod</span><span class="o">.</span><span class="n">GREEDY</span><span class="p">:</span>
             <span class="n">greedy_solver</span> <span class="o">=</span> <span class="n">GreedySolverFacility</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="n">params_objective_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span>
@@ -259,7 +262,7 @@
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">problem</span><span class="p">:</span> <span class="n">FacilityProblem</span><span class="p">,</span>
         <span class="n">fraction_to_fix</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.9</span><span class="p">,</span>
-        <span class="n">skip_first_iter</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">skip_first_iter</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">problem</span> <span class="o">=</span> <span class="n">problem</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fraction_to_fix</span> <span class="o">=</span> <span class="n">fraction_to_fix</span>
@@ -281,7 +284,7 @@
                 <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">iter</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">skip_first_iter</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;Dummy : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">result_storage</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Dummy : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">result_storage</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># type: ignore</span>
             <span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">iter</span> <span class="o">+=</span> <span class="mi">1</span>
             <span class="k">return</span> <span class="p">{}</span>
@@ -291,7 +294,15 @@
                 <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fraction_to_fix</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">customer_count</span><span class="p">),</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="n">current_solution</span> <span class="o">=</span> <span class="n">result_storage</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">current_solution</span> <span class="o">=</span> <span class="n">result_storage</span><span class="o">.</span><span class="n">get_best_solution</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">current_solution</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;result_storage.get_best_solution() &quot;</span> <span class="s2">&quot;should not be None.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_solution</span><span class="p">,</span> <span class="n">FacilitySolution</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;result_storage.get_best_solution() &quot;</span> <span class="s2">&quot;should be a FacilitySolution.&quot;</span>
+            <span class="p">)</span>
         <span class="n">dict_f_fixed</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">dict_f_start</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">start</span> <span class="o">=</span> <span class="p">[]</span>
@@ -327,7 +338,7 @@
 
 <div class="viewcode-block" id="ConstraintHandlerFacility.remove_constraints_from_previous_iteration"><a class="viewcode-back" href="../../../../api/discrete_optimization.facility.solvers.html#discrete_optimization.facility.solvers.facility_lp_lns_solver.ConstraintHandlerFacility.remove_constraints_from_previous_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">remove_constraints_from_previous_iteration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">milp_solver</span><span class="p">:</span> <span class="n">MilpSolver</span><span class="p">,</span> <span class="n">previous_constraints</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">milp_solver</span><span class="p">,</span> <span class="n">LP_Facility_Solver_PyMip</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;milp_solver must a LP_Facility_Solver_PyMip for this constraint.&quot;</span>

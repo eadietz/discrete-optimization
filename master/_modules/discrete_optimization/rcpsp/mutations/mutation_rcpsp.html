@@ -193,7 +193,9 @@
 
 <div class="viewcode-block" id="PermutationMutationRCPSP"><a class="viewcode-back" href="../../../../api/discrete_optimization.rcpsp.mutations.html#discrete_optimization.rcpsp.mutations.mutation_rcpsp.PermutationMutationRCPSP">[docs]</a><span class="k">class</span> <span class="nc">PermutationMutationRCPSP</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
 <div class="viewcode-block" id="PermutationMutationRCPSP.build"><a class="viewcode-back" href="../../../../api/discrete_optimization.rcpsp.mutations.html#discrete_optimization.rcpsp.mutations.mutation_rcpsp.PermutationMutationRCPSP.build">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span>
+        <span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PermutationMutationRCPSP&quot;</span><span class="p">:</span>
         <span class="n">other_mutation</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;other_mutation&quot;</span><span class="p">,</span> <span class="n">PermutationShuffleMutation</span><span class="p">)</span>
         <span class="n">other_mutation</span> <span class="o">=</span> <span class="n">other_mutation</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">PermutationMutationRCPSP</span><span class="p">(</span>
@@ -295,7 +297,9 @@
         <span class="k">return</span> <span class="n">sol</span><span class="p">,</span> <span class="n">move</span><span class="p">,</span> <span class="n">obj</span></div>
 
 <div class="viewcode-block" id="DeadlineMutationRCPSP.build"><a class="viewcode-back" href="../../../../api/discrete_optimization.rcpsp.mutations.html#discrete_optimization.rcpsp.mutations.mutation_rcpsp.DeadlineMutationRCPSP.build">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span>
+        <span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DeadlineMutationRCPSP&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">DeadlineMutationRCPSP</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">)</span></div></div>
 </pre></div>
 

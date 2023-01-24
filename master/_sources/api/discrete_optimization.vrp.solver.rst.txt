@@ -36,6 +36,14 @@ discrete\_optimization.vrp.solver.solver\_ortools module
    :undoc-members:
    :show-inheritance:
 
+discrete\_optimization.vrp.solver.vrp\_solver module
+----------------------------------------------------
+
+.. automodule:: discrete_optimization.vrp.solver.vrp_solver
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

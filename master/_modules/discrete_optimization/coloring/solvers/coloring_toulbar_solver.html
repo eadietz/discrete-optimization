@@ -170,12 +170,13 @@
 <span class="c1">#  This source code is licensed under the MIT license found in the</span>
 <span class="c1">#  LICENSE file in the root directory of this source tree.</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">discrete_optimization.coloring.coloring_model</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ColoringProblem</span><span class="p">,</span>
     <span class="n">ColoringSolution</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">discrete_optimization.coloring.solvers.coloring_solver</span> <span class="kn">import</span> <span class="n">SolverColoring</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.coloring.solvers.greedy_coloring</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">GreedyColoring</span><span class="p">,</span>
     <span class="n">NXGreedyColoringMethod</span><span class="p">,</span>
@@ -197,32 +198,42 @@
     <span class="n">toulbar_available</span> <span class="o">=</span> <span class="kc">True</span>
 
 
-<div class="viewcode-block" id="ToulbarColoringSolver"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_toulbar_solver.ToulbarColoringSolver">[docs]</a><span class="k">class</span> <span class="nc">ToulbarColoringSolver</span><span class="p">(</span><span class="n">SolverDO</span><span class="p">):</span>
+<div class="viewcode-block" id="ToulbarColoringSolver"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_toulbar_solver.ToulbarColoringSolver">[docs]</a><span class="k">class</span> <span class="nc">ToulbarColoringSolver</span><span class="p">(</span><span class="n">SolverColoring</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">problem</span><span class="p">:</span> <span class="n">ColoringProblem</span><span class="p">,</span>
+        <span class="n">coloring_model</span><span class="p">:</span> <span class="n">ColoringProblem</span><span class="p">,</span>
         <span class="n">params_objective_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ParamsObjectiveFunction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">problem</span> <span class="o">=</span> <span class="n">problem</span>
+        <span class="n">SolverColoring</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coloring_model</span><span class="o">=</span><span class="n">coloring_model</span><span class="p">)</span>
         <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aggreg_sol</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aggreg_from_dict_values</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span><span class="p">,</span>
         <span class="p">)</span> <span class="o">=</span> <span class="n">build_aggreg_function_and_params_objective</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="n">params_objective_function</span><span class="o">=</span><span class="n">params_objective_function</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="p">,</span> <span class="n">params_objective_function</span><span class="o">=</span><span class="n">params_objective_function</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">pytoulbar2</span><span class="o">.</span><span class="n">CFN</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="ToulbarColoringSolver.init_model"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_toulbar_solver.ToulbarColoringSolver.init_model">[docs]</a>    <span class="k">def</span> <span class="nf">init_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">):</span>
-        <span class="n">number_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">number_of_nodes</span>
-        <span class="n">index_nodes_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">index_nodes_name</span>
+<div class="viewcode-block" id="ToulbarColoringSolver.init_model"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_toulbar_solver.ToulbarColoringSolver.init_model">[docs]</a>    <span class="k">def</span> <span class="nf">init_model</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">number_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">number_of_nodes</span>
+        <span class="n">index_nodes_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">index_nodes_name</span>
         <span class="n">greedy_solver</span> <span class="o">=</span> <span class="n">GreedyColoring</span><span class="p">(</span>
-            <span class="n">color_problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span>
+            <span class="n">coloring_model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="p">,</span>
             <span class="n">params_objective_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">greedy_solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="n">NXGreedyColoringMethod</span><span class="o">.</span><span class="n">largest_first</span><span class="p">)</span>
-        <span class="n">sol</span><span class="p">:</span> <span class="n">ColoringSolution</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_best_solution</span><span class="p">()</span>
-        <span class="n">nb_colors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">sol</span><span class="p">)[</span><span class="s2">&quot;nb_colors&quot;</span><span class="p">]</span>
+        <span class="n">sol</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">get_best_solution</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">sol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;greedy_solver.solve(strategy=NXGreedyColoringMethod.largest_first).get_best_solution() &quot;</span>
+                <span class="s2">&quot;should not be None.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sol</span><span class="p">,</span> <span class="n">ColoringSolution</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;greedy_solver.solve(strategy=NXGreedyColoringMethod.largest_first).get_best_solution() &quot;</span>
+                <span class="s2">&quot;should be a ColoringSolution.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">nb_colors</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">sol</span><span class="p">)[</span><span class="s2">&quot;nb_colors&quot;</span><span class="p">])</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">nb_colors</span><span class="p">,</span> <span class="s2">&quot; colors found by the greedy method &quot;</span><span class="p">)</span>
         <span class="c1"># we don&#39;t have to have a very tight bound.</span>
         <span class="n">Problem</span> <span class="o">=</span> <span class="n">pytoulbar2</span><span class="o">.</span><span class="n">CFN</span><span class="p">(</span><span class="n">nb_colors</span><span class="p">)</span>
@@ -239,10 +250,10 @@
                 <span class="p">],</span>
             <span class="p">)</span>  <span class="c1"># encode that x_{i}&lt;=max_color.</span>
             <span class="c1">#  Problem.AddLinearConstraint([1, -1], [0, i+1], &#39;&gt;=&#39;, 0)  # max_color&gt;x_{i} (alternative way ?)</span>
-        <span class="n">value_sequence_chain</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;value_sequence_chain&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">value_sequence_chain</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;value_sequence_chain&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">value_sequence_chain</span><span class="p">:</span>
-            <span class="n">hard_value_sequence_chain</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hard_value_sequence_chain&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="n">tolerance_delta_max</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tolerance_delta_max&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">hard_value_sequence_chain</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;hard_value_sequence_chain&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">tolerance_delta_max</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tolerance_delta_max&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
             <span class="c1"># play with how &quot;fidele&quot; should be the &quot;max_x&quot; variable</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">number_nodes</span><span class="p">):</span>
                 <span class="n">Problem</span><span class="o">.</span><span class="n">AddVariable</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;max_x_</span><span class="si">{</span><span class="n">j</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">nb_colors</span><span class="p">))</span>
@@ -299,14 +310,14 @@
                             <span class="k">for</span> <span class="n">val2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nb_colors</span><span class="p">)</span>
                         <span class="p">],</span>
                     <span class="p">)</span>
-        <span class="n">len_edges</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span>
+        <span class="n">len_edges</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">)</span>
         <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">costs</span> <span class="o">=</span> <span class="p">[</span>
             <span class="mi">10000</span> <span class="k">if</span> <span class="n">val1</span> <span class="o">==</span> <span class="n">val2</span> <span class="k">else</span> <span class="mi">0</span>
             <span class="k">for</span> <span class="n">val1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nb_colors</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">val2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nb_colors</span><span class="p">)</span>
         <span class="p">]</span>
-        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">graph</span><span class="o">.</span><span class="n">edges</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">index</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="n">len_edges</span><span class="p">)</span>
             <span class="n">index1</span> <span class="o">=</span> <span class="n">index_nodes_name</span><span class="p">[</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
@@ -315,7 +326,7 @@
             <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">Problem</span></div>
 
-<div class="viewcode-block" id="ToulbarColoringSolver.solve"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_toulbar_solver.ToulbarColoringSolver.solve">[docs]</a>    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
+<div class="viewcode-block" id="ToulbarColoringSolver.solve"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_toulbar_solver.ToulbarColoringSolver.solve">[docs]</a>    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">init_model</span><span class="p">()</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -328,8 +339,8 @@
         <span class="n">solution</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">Solve</span><span class="p">(</span><span class="n">showSolutions</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
         <span class="n">rcpsp_sol</span> <span class="o">=</span> <span class="n">ColoringSolution</span><span class="p">(</span>
-            <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span>
-            <span class="n">colors</span><span class="o">=</span><span class="n">solution</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span> <span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">],</span>
+            <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="p">,</span>
+            <span class="n">colors</span><span class="o">=</span><span class="n">solution</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span> <span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">coloring_model</span><span class="o">.</span><span class="n">number_of_nodes</span><span class="p">],</span>
         <span class="p">)</span>
         <span class="n">fit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggreg_sol</span><span class="p">(</span><span class="n">rcpsp_sol</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">ResultStorage</span><span class="p">(</span>

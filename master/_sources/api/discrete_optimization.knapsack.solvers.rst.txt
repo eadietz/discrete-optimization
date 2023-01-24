@@ -60,6 +60,14 @@ discrete\_optimization.knapsack.solvers.knapsack\_lns\_solver module
    :undoc-members:
    :show-inheritance:
 
+discrete\_optimization.knapsack.solvers.knapsack\_solver module
+---------------------------------------------------------------
+
+.. automodule:: discrete_optimization.knapsack.solvers.knapsack_solver
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 discrete\_optimization.knapsack.solvers.lp\_solvers module
 ----------------------------------------------------------
 

@@ -171,7 +171,7 @@
 <span class="c1">#  LICENSE file in the root directory of this source tree.</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">discrete_optimization.datasets</span> <span class="kn">import</span> <span class="n">get_data_home</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.knapsack.knapsack_model</span> <span class="kn">import</span> <span class="n">Item</span><span class="p">,</span> <span class="n">KnapsackModel</span>
@@ -179,7 +179,7 @@
 
 <div class="viewcode-block" id="get_data_available"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_parser.get_data_available">[docs]</a><span class="k">def</span> <span class="nf">get_data_available</span><span class="p">(</span>
     <span class="n">data_folder</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">data_home</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">):</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Get datasets available for knapsack.</span>
 
 <span class="sd">    Params:</span>
@@ -203,7 +203,9 @@
     <span class="k">return</span> <span class="n">datasets</span></div>
 
 
-<div class="viewcode-block" id="parse_input_data"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_parser.parse_input_data">[docs]</a><span class="k">def</span> <span class="nf">parse_input_data</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">force_recompute_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KnapsackModel</span><span class="p">:</span>
+<div class="viewcode-block" id="parse_input_data"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_parser.parse_input_data">[docs]</a><span class="k">def</span> <span class="nf">parse_input_data</span><span class="p">(</span>
+    <span class="n">input_data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">force_recompute_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KnapsackModel</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse a string of the following form :</span>
 <span class="sd">    item_count max_capacity</span>
@@ -227,7 +229,7 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="parse_file"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_parser.parse_file">[docs]</a><span class="k">def</span> <span class="nf">parse_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">force_recompute_values</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KnapsackModel</span><span class="p">:</span>
+<div class="viewcode-block" id="parse_file"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_parser.parse_file">[docs]</a><span class="k">def</span> <span class="nf">parse_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">force_recompute_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KnapsackModel</span><span class="p">:</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">input_data_file</span><span class="p">:</span>
         <span class="n">input_data</span> <span class="o">=</span> <span class="n">input_data_file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
         <span class="n">knapsack_model</span> <span class="o">=</span> <span class="n">parse_input_data</span><span class="p">(</span>

@@ -172,7 +172,7 @@
 
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -209,7 +209,9 @@
 
 <div class="viewcode-block" id="PermutationShuffleMutation"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.PermutationShuffleMutation">[docs]</a><span class="k">class</span> <span class="nc">PermutationShuffleMutation</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
 <div class="viewcode-block" id="PermutationShuffleMutation.build"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.PermutationShuffleMutation.build">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span>
+        <span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PermutationShuffleMutation&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">PermutationShuffleMutation</span><span class="p">(</span><span class="n">problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -245,7 +247,9 @@
 
 <div class="viewcode-block" id="PermutationPartialShuffleMutation"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.PermutationPartialShuffleMutation">[docs]</a><span class="k">class</span> <span class="nc">PermutationPartialShuffleMutation</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
 <div class="viewcode-block" id="PermutationPartialShuffleMutation.build"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.PermutationPartialShuffleMutation.build">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span>
+        <span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PermutationPartialShuffleMutation&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">PermutationPartialShuffleMutation</span><span class="p">(</span>
             <span class="n">problem</span><span class="p">,</span>
             <span class="n">solution</span><span class="p">,</span>
@@ -292,7 +296,7 @@
 
 
 <div class="viewcode-block" id="SwapsLocalMove"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.SwapsLocalMove">[docs]</a><span class="k">class</span> <span class="nc">SwapsLocalMove</span><span class="p">(</span><span class="n">LocalMove</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">list_index_swap</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">list_index_swap</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span> <span class="o">=</span> <span class="n">attribute</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">list_index_swap</span> <span class="o">=</span> <span class="n">list_index_swap</span>
 
@@ -313,7 +317,7 @@
 
 <div class="viewcode-block" id="PermutationSwap"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.PermutationSwap">[docs]</a><span class="k">class</span> <span class="nc">PermutationSwap</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
 <div class="viewcode-block" id="PermutationSwap.build"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.PermutationSwap.build">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;PermutationSwap&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">PermutationSwap</span><span class="p">(</span>
             <span class="n">problem</span><span class="p">,</span>
             <span class="n">solution</span><span class="p">,</span>
@@ -354,7 +358,7 @@
 
 
 <div class="viewcode-block" id="TwoOptMove"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.TwoOptMove">[docs]</a><span class="k">class</span> <span class="nc">TwoOptMove</span><span class="p">(</span><span class="n">LocalMove</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">index_2opt</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">index_2opt</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span> <span class="o">=</span> <span class="n">attribute</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">index_2opt</span> <span class="o">=</span> <span class="n">index_2opt</span>
 
@@ -375,7 +379,7 @@
 
 <div class="viewcode-block" id="TwoOptMutation"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.TwoOptMutation">[docs]</a><span class="k">class</span> <span class="nc">TwoOptMutation</span><span class="p">(</span><span class="n">Mutation</span><span class="p">):</span>
 <div class="viewcode-block" id="TwoOptMutation.build"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.mutations.html#discrete_optimization.generic_tools.mutations.permutation_mutations.TwoOptMutation.build">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;TwoOptMutation&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">TwoOptMutation</span><span class="p">(</span>
             <span class="n">problem</span><span class="p">,</span> <span class="n">solution</span><span class="p">,</span> <span class="n">attribute</span><span class="o">=</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;attribute&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="p">)</span></div>

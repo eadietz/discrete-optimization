@@ -49,6 +49,14 @@ discrete\_optimization.generic\_tools.do\_solver module
    :undoc-members:
    :show-inheritance:
 
+discrete\_optimization.generic\_tools.ghh\_tools module
+-------------------------------------------------------
+
+.. automodule:: discrete_optimization.generic_tools.ghh_tools
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 discrete\_optimization.generic\_tools.graph\_api module
 -------------------------------------------------------
 

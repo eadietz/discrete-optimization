@@ -172,7 +172,10 @@
 
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Type</span>
 
-<span class="kn">from</span> <span class="nn">discrete_optimization.facility.facility_model</span> <span class="kn">import</span> <span class="n">FacilityProblem</span>
+<span class="kn">from</span> <span class="nn">discrete_optimization.facility.facility_model</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">FacilityProblem</span><span class="p">,</span>
+    <span class="n">FacilityProblem2DPoints</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.facility.solvers.facility_cp_solvers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">CPSolverName</span><span class="p">,</span>
     <span class="n">FacilityCP</span><span class="p">,</span>
@@ -186,15 +189,17 @@
     <span class="n">MilpSolverName</span><span class="p">,</span>
     <span class="n">ParametersMilp</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">discrete_optimization.facility.solvers.facility_solver</span> <span class="kn">import</span> <span class="n">SolverFacility</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.facility.solvers.greedy_solvers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">GreedySolverDistanceBased</span><span class="p">,</span>
     <span class="n">GreedySolverFacility</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">discrete_optimization.generic_tools.do_problem</span> <span class="kn">import</span> <span class="n">Problem</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.generic_tools.result_storage.result_storage</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ResultStorage</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="n">solvers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Type</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">solvers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">SolverFacility</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]]]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;lp&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">(</span>
             <span class="n">LP_Facility_Solver</span><span class="p">,</span>
@@ -244,18 +249,20 @@
     <span class="k">for</span> <span class="n">solver</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">solvers</span><span class="p">[</span><span class="n">key</span><span class="p">]:</span>
         <span class="n">solvers_map</span><span class="p">[</span><span class="n">solver</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
 
-<span class="n">solvers_compatibility</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">solvers_compatibility</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">SolverFacility</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">Problem</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">solvers</span><span class="p">:</span>
     <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">solvers</span><span class="p">[</span><span class="n">x</span><span class="p">]:</span>
-        <span class="n">solvers_compatibility</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">FacilityProblem</span><span class="p">]</span>
+        <span class="n">solvers_compatibility</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="n">FacilityProblem2DPoints</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="look_for_solver"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_solvers.look_for_solver">[docs]</a><span class="k">def</span> <span class="nf">look_for_solver</span><span class="p">(</span><span class="n">domain</span><span class="p">):</span>
+<div class="viewcode-block" id="look_for_solver"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_solvers.look_for_solver">[docs]</a><span class="k">def</span> <span class="nf">look_for_solver</span><span class="p">(</span><span class="n">domain</span><span class="p">:</span> <span class="n">FacilityProblem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">SolverFacility</span><span class="p">]]:</span>
     <span class="n">class_domain</span> <span class="o">=</span> <span class="n">domain</span><span class="o">.</span><span class="vm">__class__</span>
     <span class="k">return</span> <span class="n">look_for_solver_class</span><span class="p">(</span><span class="n">class_domain</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="look_for_solver_class"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_solvers.look_for_solver_class">[docs]</a><span class="k">def</span> <span class="nf">look_for_solver_class</span><span class="p">(</span><span class="n">class_domain</span><span class="p">):</span>
+<div class="viewcode-block" id="look_for_solver_class"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_solvers.look_for_solver_class">[docs]</a><span class="k">def</span> <span class="nf">look_for_solver_class</span><span class="p">(</span>
+    <span class="n">class_domain</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">FacilityProblem</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">SolverFacility</span><span class="p">]]:</span>
     <span class="n">available</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">solver</span> <span class="ow">in</span> <span class="n">solvers_compatibility</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">class_domain</span> <span class="ow">in</span> <span class="n">solvers_compatibility</span><span class="p">[</span><span class="n">solver</span><span class="p">]:</span>
@@ -263,19 +270,23 @@
     <span class="k">return</span> <span class="n">available</span></div>
 
 
-<div class="viewcode-block" id="solve"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_solvers.solve">[docs]</a><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">facility_problem</span><span class="p">:</span> <span class="n">FacilityProblem</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
-    <span class="n">solver</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="n">facility_problem</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="solve"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_solvers.solve">[docs]</a><span class="k">def</span> <span class="nf">solve</span><span class="p">(</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">SolverFacility</span><span class="p">],</span> <span class="n">facility_problem</span><span class="p">:</span> <span class="n">FacilityProblem</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
+    <span class="n">solver</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="n">facility_problem</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">solver</span><span class="o">.</span><span class="n">init_model</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">init_model</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="k">pass</span>
-    <span class="k">return</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="return_solver"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_solvers.return_solver">[docs]</a><span class="k">def</span> <span class="nf">return_solver</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">coloring_model</span><span class="p">:</span> <span class="n">FacilityProblem</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
-    <span class="n">solver</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="n">coloring_model</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+<div class="viewcode-block" id="return_solver"><a class="viewcode-back" href="../../../api/discrete_optimization.facility.html#discrete_optimization.facility.facility_solvers.return_solver">[docs]</a><span class="k">def</span> <span class="nf">return_solver</span><span class="p">(</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">SolverFacility</span><span class="p">],</span> <span class="n">coloring_model</span><span class="p">:</span> <span class="n">FacilityProblem</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SolverFacility</span><span class="p">:</span>
+    <span class="n">solver</span> <span class="o">=</span> <span class="n">method</span><span class="p">(</span><span class="n">coloring_model</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">solver</span><span class="o">.</span><span class="n">init_model</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">solver</span><span class="o">.</span><span class="n">init_model</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="k">pass</span>
     <span class="k">return</span> <span class="n">solver</span></div>

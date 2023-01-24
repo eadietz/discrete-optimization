@@ -28,6 +28,14 @@ discrete\_optimization.tsp.solver.tsp\_cp\_solver module
    :undoc-members:
    :show-inheritance:
 
+discrete\_optimization.tsp.solver.tsp\_solver module
+----------------------------------------------------
+
+.. automodule:: discrete_optimization.tsp.solver.tsp_solver
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 

@@ -36,6 +36,14 @@ discrete\_optimization.coloring.solvers.coloring\_lp\_solvers module
    :undoc-members:
    :show-inheritance:
 
+discrete\_optimization.coloring.solvers.coloring\_solver module
+---------------------------------------------------------------
+
+.. automodule:: discrete_optimization.coloring.solvers.coloring_solver
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 discrete\_optimization.coloring.solvers.coloring\_toulbar\_solver module
 ------------------------------------------------------------------------
 

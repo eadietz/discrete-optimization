@@ -172,7 +172,7 @@
 
 <span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">NamedTuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">cast</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -180,6 +180,7 @@
     <span class="n">EncodingRegister</span><span class="p">,</span>
     <span class="n">MethodAggregating</span><span class="p">,</span>
     <span class="n">ModeOptim</span><span class="p">,</span>
+    <span class="n">ObjectiveDoc</span><span class="p">,</span>
     <span class="n">ObjectiveHandling</span><span class="p">,</span>
     <span class="n">ObjectiveRegister</span><span class="p">,</span>
     <span class="n">Problem</span><span class="p">,</span>
@@ -197,7 +198,7 @@
     <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="s2">&quot;ind: &quot;</span>
             <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
@@ -209,17 +210,19 @@
 
 
 <div class="viewcode-block" id="KnapsackSolution"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolution">[docs]</a><span class="k">class</span> <span class="nc">KnapsackSolution</span><span class="p">(</span><span class="n">Solution</span><span class="p">):</span>
-    <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">weight</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">list_taken</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">problem</span><span class="p">,</span> <span class="n">list_taken</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">problem</span><span class="p">:</span> <span class="s2">&quot;KnapsackModel&quot;</span><span class="p">,</span>
+        <span class="n">list_taken</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">weight</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">problem</span> <span class="o">=</span> <span class="n">problem</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span> <span class="o">=</span> <span class="n">list_taken</span>
 
-<div class="viewcode-block" id="KnapsackSolution.copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolution.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackSolution.copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolution.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;KnapsackSolution&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">KnapsackSolution</span><span class="p">(</span>
             <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
@@ -227,7 +230,7 @@
             <span class="n">list_taken</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">),</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KnapsackSolution.lazy_copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolution.lazy_copy">[docs]</a>    <span class="k">def</span> <span class="nf">lazy_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackSolution.lazy_copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolution.lazy_copy">[docs]</a>    <span class="k">def</span> <span class="nf">lazy_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;KnapsackSolution&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">KnapsackSolution</span><span class="p">(</span>
             <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
@@ -235,25 +238,25 @@
             <span class="n">list_taken</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KnapsackSolution.change_problem"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolution.change_problem">[docs]</a>    <span class="k">def</span> <span class="nf">change_problem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_problem</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">problem</span><span class="o">=</span><span class="n">new_problem</span><span class="p">,</span>
-            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-            <span class="n">weight</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span>
-            <span class="n">list_taken</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">),</span>
-        <span class="p">)</span></div>
+<div class="viewcode-block" id="KnapsackSolution.change_problem"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolution.change_problem">[docs]</a>    <span class="k">def</span> <span class="nf">change_problem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_problem</span><span class="p">,</span> <span class="n">KnapsackModel</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;new_problem must a KnapsackModel for a KnapsackSolution.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">problem</span> <span class="o">=</span> <span class="n">new_problem</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Value=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Weight=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Taken : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">s</span>
 
-    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">list_taken</span></div>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">KnapsackSolution</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">list_taken</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="KnapsackModel"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel">[docs]</a><span class="k">class</span> <span class="nc">KnapsackModel</span><span class="p">(</span><span class="n">Problem</span><span class="p">):</span>
@@ -286,11 +289,10 @@
 
 <div class="viewcode-block" id="KnapsackModel.get_objective_register"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.get_objective_register">[docs]</a>    <span class="k">def</span> <span class="nf">get_objective_register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObjectiveRegister</span><span class="p">:</span>
         <span class="n">dict_objective</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;weight_violation&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span>
-                <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">100000</span><span class="p">,</span>
-            <span class="p">},</span>
-            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="s2">&quot;weight_violation&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span>
+                <span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=-</span><span class="mf">100000.0</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">ObjectiveRegister</span><span class="p">(</span>
             <span class="n">objective_sense</span><span class="o">=</span><span class="n">ModeOptim</span><span class="o">.</span><span class="n">MAXIMIZATION</span><span class="p">,</span>
@@ -298,16 +300,17 @@
             <span class="n">dict_objective_to_doc</span><span class="o">=</span><span class="n">dict_objective</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KnapsackModel.evaluate_from_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.evaluate_from_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_from_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">int_vector</span><span class="p">,</span> <span class="n">encoding_name</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackModel.evaluate_from_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.evaluate_from_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_from_encoding</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">int_vector</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">encoding_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="k">if</span> <span class="n">encoding_name</span> <span class="o">==</span> <span class="s2">&quot;list_taken&quot;</span><span class="p">:</span>
             <span class="n">kp_sol</span> <span class="o">=</span> <span class="n">KnapsackSolution</span><span class="p">(</span><span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_taken</span><span class="o">=</span><span class="n">int_vector</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">encoding_name</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
-            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">encoding_name</span><span class="p">:</span> <span class="n">int_vector</span><span class="p">,</span> <span class="s2">&quot;problem&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="p">}</span>
-            <span class="n">kp_sol</span> <span class="o">=</span> <span class="n">KnapsackSolution</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;encoding_name must be &#39;list_taken&#39;&quot;</span><span class="p">)</span>
         <span class="n">objectives</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">kp_sol</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">objectives</span></div>
 
-<div class="viewcode-block" id="KnapsackModel.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackModel.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>  <span class="c1"># type: ignore # avoid isinstance checks for efficiency</span>
         <span class="k">if</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force_recompute_values</span><span class="p">:</span>
             <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_value</span><span class="p">(</span><span class="n">knapsack_solution</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -315,7 +318,7 @@
         <span class="n">w_violation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_weight_violation</span><span class="p">(</span><span class="n">knapsack_solution</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">val</span><span class="p">,</span> <span class="s2">&quot;weight_violation&quot;</span><span class="p">:</span> <span class="n">w_violation</span><span class="p">}</span></div>
 
-<div class="viewcode-block" id="KnapsackModel.evaluate_value"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.evaluate_value">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackModel.evaluate_value"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.evaluate_value">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">list_taken</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
@@ -337,15 +340,15 @@
             <span class="p">]</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KnapsackModel.evaluate_weight_violation"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.evaluate_weight_violation">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_weight_violation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">):</span>
-        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">weight</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_capacity</span><span class="p">)</span></div>
+<div class="viewcode-block" id="KnapsackModel.evaluate_weight_violation"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.evaluate_weight_violation">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_weight_violation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">weight</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_capacity</span><span class="p">)</span>  <span class="c1"># type: ignore  # avoid is None check for efficiency</span></div>
 
-<div class="viewcode-block" id="KnapsackModel.satisfy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.satisfy">[docs]</a>    <span class="k">def</span> <span class="nf">satisfy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackModel.satisfy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.satisfy">[docs]</a>    <span class="k">def</span> <span class="nf">satisfy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># type: ignore  # avoid isinstance checks for efficiency</span>
         <span class="k">if</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">knapsack_solution</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">weight</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_capacity</span></div>
+        <span class="k">return</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">weight</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_capacity</span>  <span class="c1"># type: ignore  # avoid is None check for efficiency</span></div>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
             <span class="s2">&quot;Knapsack model with &quot;</span>
             <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_items</span><span class="p">)</span>
@@ -356,18 +359,18 @@
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_items</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">s</span>
 
-<div class="viewcode-block" id="KnapsackModel.get_dummy_solution"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.get_dummy_solution">[docs]</a>    <span class="k">def</span> <span class="nf">get_dummy_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackModel.get_dummy_solution"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.get_dummy_solution">[docs]</a>    <span class="k">def</span> <span class="nf">get_dummy_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KnapsackSolution</span><span class="p">:</span>
         <span class="n">kp_sol</span> <span class="o">=</span> <span class="n">KnapsackSolution</span><span class="p">(</span><span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_taken</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nb_items</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">kp_sol</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">kp_sol</span></div>
 
-<div class="viewcode-block" id="KnapsackModel.get_solution_type"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackModel.get_solution_type"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">Solution</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">KnapsackSolution</span></div></div>
 
 
 <div class="viewcode-block" id="KnapsackModel_Mobj"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel_Mobj">[docs]</a><span class="k">class</span> <span class="nc">KnapsackModel_Mobj</span><span class="p">(</span><span class="n">KnapsackModel</span><span class="p">):</span>
 <div class="viewcode-block" id="KnapsackModel_Mobj.from_knapsack"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel_Mobj.from_knapsack">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">from_knapsack</span><span class="p">(</span><span class="n">knapsack_model</span><span class="p">:</span> <span class="n">KnapsackModel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">from_knapsack</span><span class="p">(</span><span class="n">knapsack_model</span><span class="p">:</span> <span class="n">KnapsackModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;KnapsackModel_Mobj&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">KnapsackModel_Mobj</span><span class="p">(</span>
             <span class="n">list_items</span><span class="o">=</span><span class="n">knapsack_model</span><span class="o">.</span><span class="n">list_items</span><span class="p">,</span>
             <span class="n">max_capacity</span><span class="o">=</span><span class="n">knapsack_model</span><span class="o">.</span><span class="n">max_capacity</span><span class="p">,</span>
@@ -376,13 +379,14 @@
 
 <div class="viewcode-block" id="KnapsackModel_Mobj.get_objective_register"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel_Mobj.get_objective_register">[docs]</a>    <span class="k">def</span> <span class="nf">get_objective_register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObjectiveRegister</span><span class="p">:</span>
         <span class="n">dict_objective</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;weight_violation&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span>
-                <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">100000</span><span class="p">,</span>
-            <span class="p">},</span>
-            <span class="s2">&quot;heaviest_item&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
-            <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span>
-            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="s2">&quot;weight_violation&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span>
+                <span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=-</span><span class="mf">100000.0</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;heaviest_item&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span>
+                <span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=</span><span class="mf">1.0</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;weight&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">),</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">ObjectiveRegister</span><span class="p">(</span>
             <span class="n">objective_sense</span><span class="o">=</span><span class="n">ModeOptim</span><span class="o">.</span><span class="n">MAXIMIZATION</span><span class="p">,</span>
@@ -390,10 +394,10 @@
             <span class="n">dict_objective_to_doc</span><span class="o">=</span><span class="n">dict_objective</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KnapsackModel_Mobj.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel_Mobj.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackModel_Mobj.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel_Mobj.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>  <span class="c1"># type: ignore  # avoid isinstance checks for efficiency</span>
         <span class="n">res</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">knapsack_solution</span><span class="p">)</span>
-        <span class="n">heaviest</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">weight</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">heaviest</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_items</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">list_taken</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="n">heaviest</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">heaviest</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">weight</span><span class="p">)</span>
@@ -402,27 +406,31 @@
         <span class="n">res</span><span class="p">[</span><span class="s2">&quot;weight&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
         <span class="k">return</span> <span class="n">res</span></div>
 
-<div class="viewcode-block" id="KnapsackModel_Mobj.evaluate_mobj_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel_Mobj.evaluate_mobj_from_dict">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_mobj_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+<div class="viewcode-block" id="KnapsackModel_Mobj.evaluate_mobj_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel_Mobj.evaluate_mobj_from_dict">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_mobj_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">TupleFitness</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">TupleFitness</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dict_values</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">],</span> <span class="o">-</span><span class="n">dict_values</span><span class="p">[</span><span class="s2">&quot;heaviest_item&quot;</span><span class="p">]]),</span> <span class="mi">2</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KnapsackModel_Mobj.evaluate_mobj"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel_Mobj.evaluate_mobj">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_mobj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackModel_Mobj.evaluate_mobj"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackModel_Mobj.evaluate_mobj">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_mobj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solution</span><span class="p">:</span> <span class="n">KnapsackSolution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TupleFitness</span><span class="p">:</span>  <span class="c1"># type: ignore  # avoid isinstance checks for efficiency</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_mobj_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">solution</span><span class="p">))</span></div></div>
 
 
 <div class="viewcode-block" id="KnapsackSolutionMultidimensional"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolutionMultidimensional">[docs]</a><span class="k">class</span> <span class="nc">KnapsackSolutionMultidimensional</span><span class="p">(</span><span class="n">Solution</span><span class="p">):</span>
-    <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
-    <span class="n">weights</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
-    <span class="n">list_taken</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">problem</span><span class="p">,</span> <span class="n">list_taken</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">problem</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+            <span class="s2">&quot;MultidimensionalKnapsack&quot;</span><span class="p">,</span> <span class="s2">&quot;MultiScenarioMultidimensionalKnapsack&quot;</span>
+        <span class="p">],</span>
+        <span class="n">list_taken</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">weights</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">problem</span> <span class="o">=</span> <span class="n">problem</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span> <span class="o">=</span> <span class="n">list_taken</span>
 
-<div class="viewcode-block" id="KnapsackSolutionMultidimensional.copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolutionMultidimensional.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackSolutionMultidimensional.copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolutionMultidimensional.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;KnapsackSolutionMultidimensional&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">(</span>
             <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
@@ -430,7 +438,7 @@
             <span class="n">list_taken</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">),</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KnapsackSolutionMultidimensional.lazy_copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolutionMultidimensional.lazy_copy">[docs]</a>    <span class="k">def</span> <span class="nf">lazy_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KnapsackSolutionMultidimensional.lazy_copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolutionMultidimensional.lazy_copy">[docs]</a>    <span class="k">def</span> <span class="nf">lazy_copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;KnapsackSolutionMultidimensional&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">(</span>
             <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span>
             <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
@@ -438,25 +446,28 @@
             <span class="n">list_taken</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="KnapsackSolutionMultidimensional.change_problem"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolutionMultidimensional.change_problem">[docs]</a>    <span class="k">def</span> <span class="nf">change_problem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_problem</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">problem</span><span class="o">=</span><span class="n">new_problem</span><span class="p">,</span>
-            <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-            <span class="n">weights</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">,</span>
-            <span class="n">list_taken</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">),</span>
-        <span class="p">)</span></div>
+<div class="viewcode-block" id="KnapsackSolutionMultidimensional.change_problem"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.KnapsackSolutionMultidimensional.change_problem">[docs]</a>    <span class="k">def</span> <span class="nf">change_problem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_problem</span><span class="p">,</span> <span class="n">MultidimensionalKnapsack</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;new_problem must a MultidimensionalKnapsack for a KnapsackSolutionMultidimensional.&quot;</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">problem</span> <span class="o">=</span> <span class="n">new_problem</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Value=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Weights=&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Taken : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">s</span>
 
-    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__hash__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
 
-    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">list_taken</span></div>
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_taken</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="n">list_taken</span>
+        <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ItemMultidimensional"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.ItemMultidimensional">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -465,7 +476,7 @@
     <span class="n">value</span><span class="p">:</span> <span class="nb">float</span>
     <span class="n">weights</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span>
             <span class="s2">&quot;ind: &quot;</span>
             <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
@@ -506,11 +517,10 @@
 
 <div class="viewcode-block" id="MultidimensionalKnapsack.get_objective_register"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.get_objective_register">[docs]</a>    <span class="k">def</span> <span class="nf">get_objective_register</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ObjectiveRegister</span><span class="p">:</span>
         <span class="n">dict_objective</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;weight_violation&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span>
-                <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">100000</span><span class="p">,</span>
-            <span class="p">},</span>
-            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="s2">&quot;default_weight&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+            <span class="s2">&quot;weight_violation&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span>
+                <span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">PENALTY</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=-</span><span class="mf">100000.0</span>
+            <span class="p">),</span>
+            <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">ObjectiveDoc</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">TypeObjective</span><span class="o">.</span><span class="n">OBJECTIVE</span><span class="p">,</span> <span class="n">default_weight</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">ObjectiveRegister</span><span class="p">(</span>
             <span class="n">objective_sense</span><span class="o">=</span><span class="n">ModeOptim</span><span class="o">.</span><span class="n">MAXIMIZATION</span><span class="p">,</span>
@@ -518,18 +528,22 @@
             <span class="n">dict_objective_to_doc</span><span class="o">=</span><span class="n">dict_objective</span><span class="p">,</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="MultidimensionalKnapsack.evaluate_from_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.evaluate_from_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_from_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">int_vector</span><span class="p">,</span> <span class="n">encoding_name</span><span class="p">):</span>
+<div class="viewcode-block" id="MultidimensionalKnapsack.evaluate_from_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.evaluate_from_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_from_encoding</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">int_vector</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">encoding_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="k">if</span> <span class="n">encoding_name</span> <span class="o">==</span> <span class="s2">&quot;list_taken&quot;</span><span class="p">:</span>
             <span class="n">kp_sol</span> <span class="o">=</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">(</span>
                 <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_taken</span><span class="o">=</span><span class="n">int_vector</span>
             <span class="p">)</span>
         <span class="k">elif</span> <span class="n">encoding_name</span> <span class="o">==</span> <span class="s2">&quot;custom&quot;</span><span class="p">:</span>
-            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="n">encoding_name</span><span class="p">:</span> <span class="n">int_vector</span><span class="p">,</span> <span class="s2">&quot;problem&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="p">}</span>
-            <span class="n">kp_sol</span> <span class="o">=</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">kwargs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">encoding_name</span><span class="p">:</span> <span class="n">int_vector</span><span class="p">}</span>
+            <span class="n">kp_sol</span> <span class="o">=</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">(</span><span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;encoding_name must be &#39;list_taken&#39; or &#39;custom&#39;&quot;</span><span class="p">)</span>
         <span class="n">objectives</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">kp_sol</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">objectives</span></div>
 
-<div class="viewcode-block" id="MultidimensionalKnapsack.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">):</span>
+<div class="viewcode-block" id="MultidimensionalKnapsack.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>  <span class="c1"># type: ignore  # avoid isinstance checks for efficiency</span>
         <span class="k">if</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">force_recompute_values</span><span class="p">:</span>
             <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_value</span><span class="p">(</span><span class="n">knapsack_solution</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -537,7 +551,9 @@
         <span class="n">w_violation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate_weight_violation</span><span class="p">(</span><span class="n">knapsack_solution</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">val</span><span class="p">,</span> <span class="s2">&quot;weight_violation&quot;</span><span class="p">:</span> <span class="n">w_violation</span><span class="p">}</span></div>
 
-<div class="viewcode-block" id="MultidimensionalKnapsack.evaluate_value"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.evaluate_value">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">):</span>
+<div class="viewcode-block" id="MultidimensionalKnapsack.evaluate_value"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.evaluate_value">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_value</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolutionMultidimensional</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">list_taken</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
@@ -559,7 +575,11 @@
 
 <div class="viewcode-block" id="MultidimensionalKnapsack.evaluate_weight_violation"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.evaluate_weight_violation">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_weight_violation</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolutionMultidimensional</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;knapsack_solution.weights should not be None when calling evaluate_weight_violation.&quot;</span>
+            <span class="p">)</span>
         <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span>
             <span class="p">[</span>
                 <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_capacities</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
@@ -567,15 +587,19 @@
             <span class="p">]</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="MultidimensionalKnapsack.satisfy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.satisfy">[docs]</a>    <span class="k">def</span> <span class="nf">satisfy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="MultidimensionalKnapsack.satisfy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.satisfy">[docs]</a>    <span class="k">def</span> <span class="nf">satisfy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">knapsack_solution</span><span class="p">:</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>  <span class="c1"># type: ignore  # avoid isinstance checks for efficiency</span>
+        <span class="k">if</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">knapsack_solution</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                    <span class="s2">&quot;knapsack_solution.value and knapsack_solution.weights should not be None now.&quot;</span>
+                <span class="p">)</span>
         <span class="k">return</span> <span class="nb">all</span><span class="p">(</span>
             <span class="n">knapsack_solution</span><span class="o">.</span><span class="n">weights</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_capacities</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_capacities</span><span class="p">))</span>
         <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
             <span class="s2">&quot;Knapsack model with &quot;</span>
             <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">nb_items</span><span class="p">)</span>
@@ -586,17 +610,17 @@
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_items</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">s</span>
 
-<div class="viewcode-block" id="MultidimensionalKnapsack.get_dummy_solution"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.get_dummy_solution">[docs]</a>    <span class="k">def</span> <span class="nf">get_dummy_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MultidimensionalKnapsack.get_dummy_solution"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.get_dummy_solution">[docs]</a>    <span class="k">def</span> <span class="nf">get_dummy_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">:</span>
         <span class="n">kp_sol</span> <span class="o">=</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">(</span>
             <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">list_taken</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">nb_items</span>
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">kp_sol</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">kp_sol</span></div>
 
-<div class="viewcode-block" id="MultidimensionalKnapsack.get_solution_type"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MultidimensionalKnapsack.get_solution_type"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">Solution</span><span class="p">]:</span>
         <span class="k">return</span> <span class="n">KnapsackSolutionMultidimensional</span></div>
 
-<div class="viewcode-block" id="MultidimensionalKnapsack.copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MultidimensionalKnapsack.copy"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultidimensionalKnapsack.copy">[docs]</a>    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;MultidimensionalKnapsack&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">MultidimensionalKnapsack</span><span class="p">(</span>
             <span class="n">list_items</span><span class="o">=</span><span class="p">[</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_items</span><span class="p">],</span>
             <span class="n">max_capacities</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_capacities</span><span class="p">),</span>
@@ -605,18 +629,20 @@
 
 
 <div class="viewcode-block" id="MultiScenarioMultidimensionalKnapsack"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultiScenarioMultidimensionalKnapsack">[docs]</a><span class="k">class</span> <span class="nc">MultiScenarioMultidimensionalKnapsack</span><span class="p">(</span><span class="n">RobustProblem</span><span class="p">):</span>
+    <span class="n">list_problem</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">MultidimensionalKnapsack</span><span class="p">]</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
-        <span class="n">list_problem</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">MultidimensionalKnapsack</span><span class="p">],</span>
+        <span class="n">list_problem</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">MultidimensionalKnapsack</span><span class="p">],</span>
         <span class="n">method_aggregating</span><span class="p">:</span> <span class="n">MethodAggregating</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">list_problem</span><span class="p">,</span> <span class="n">method_aggregating</span><span class="p">)</span>
 
-<div class="viewcode-block" id="MultiScenarioMultidimensionalKnapsack.get_dummy_solution"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultiScenarioMultidimensionalKnapsack.get_dummy_solution">[docs]</a>    <span class="k">def</span> <span class="nf">get_dummy_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_dummy_solution</span><span class="p">()</span></div></div>
+<div class="viewcode-block" id="MultiScenarioMultidimensionalKnapsack.get_dummy_solution"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.MultiScenarioMultidimensionalKnapsack.get_dummy_solution">[docs]</a>    <span class="k">def</span> <span class="nf">get_dummy_solution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KnapsackSolutionMultidimensional</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">MultidimensionalKnapsack</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">get_dummy_solution</span><span class="p">()</span></div></div>
 
 
-<div class="viewcode-block" id="from_kp_to_multi"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.from_kp_to_multi">[docs]</a><span class="k">def</span> <span class="nf">from_kp_to_multi</span><span class="p">(</span><span class="n">knapsack_model</span><span class="p">:</span> <span class="n">KnapsackModel</span><span class="p">):</span>
+<div class="viewcode-block" id="from_kp_to_multi"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.from_kp_to_multi">[docs]</a><span class="k">def</span> <span class="nf">from_kp_to_multi</span><span class="p">(</span><span class="n">knapsack_model</span><span class="p">:</span> <span class="n">KnapsackModel</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MultidimensionalKnapsack</span><span class="p">:</span>
     <span class="k">return</span> <span class="n">MultidimensionalKnapsack</span><span class="p">(</span>
         <span class="n">list_items</span><span class="o">=</span><span class="p">[</span>
             <span class="n">ItemMultidimensional</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">weight</span><span class="p">])</span>
@@ -626,7 +652,9 @@
     <span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="create_noised_scenario"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.create_noised_scenario">[docs]</a><span class="k">def</span> <span class="nf">create_noised_scenario</span><span class="p">(</span><span class="n">problem</span><span class="p">:</span> <span class="n">MultidimensionalKnapsack</span><span class="p">,</span> <span class="n">nb_scenarios</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">):</span>
+<div class="viewcode-block" id="create_noised_scenario"><a class="viewcode-back" href="../../../api/discrete_optimization.knapsack.html#discrete_optimization.knapsack.knapsack_model.create_noised_scenario">[docs]</a><span class="k">def</span> <span class="nf">create_noised_scenario</span><span class="p">(</span>
+    <span class="n">problem</span><span class="p">:</span> <span class="n">MultidimensionalKnapsack</span><span class="p">,</span> <span class="n">nb_scenarios</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">MultidimensionalKnapsack</span><span class="p">]:</span>
     <span class="n">scenarios</span> <span class="o">=</span> <span class="p">[</span><span class="n">problem</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nb_scenarios</span><span class="p">)]</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">scenarios</span><span class="p">:</span>
         <span class="n">litem</span> <span class="o">=</span> <span class="p">[]</span>

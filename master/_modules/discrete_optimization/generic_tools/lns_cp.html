@@ -196,6 +196,7 @@
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.generic_tools.result_storage.result_storage</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ResultStorage</span><span class="p">,</span>
+    <span class="n">fitness_class</span><span class="p">,</span>
 <span class="p">)</span>
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
@@ -220,8 +221,11 @@
 
 <div class="viewcode-block" id="ConstraintHandler.remove_constraints_from_previous_iteration"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.lns_cp.ConstraintHandler.remove_constraints_from_previous_iteration">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">remove_constraints_from_previous_iteration</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">cp_solver</span><span class="p">:</span> <span class="n">CPSolver</span><span class="p">,</span> <span class="n">child_instance</span><span class="p">,</span> <span class="n">previous_constraints</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
-    <span class="p">):</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cp_solver</span><span class="p">:</span> <span class="n">CPSolver</span><span class="p">,</span>
+        <span class="n">child_instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
+        <span class="n">previous_constraints</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="o">...</span></div></div>
 
 
@@ -261,7 +265,7 @@
         <span class="n">max_time_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">skip_first_iteration</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">stop_first_iteration_if_optimal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
         <span class="n">sense</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span><span class="o">.</span><span class="n">sense_function</span>
         <span class="k">if</span> <span class="n">max_time_seconds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -280,13 +284,16 @@
             <span class="n">store_lns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial_solution_provider</span><span class="o">.</span><span class="n">get_starting_solution</span><span class="p">()</span>
             <span class="n">store_lns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_process_solution</span><span class="o">.</span><span class="n">build_other_solution</span><span class="p">(</span><span class="n">store_lns</span><span class="p">)</span>
             <span class="n">init_solution</span><span class="p">,</span> <span class="n">objective</span> <span class="o">=</span> <span class="n">store_lns</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()</span>
-            <span class="n">satisfy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">satisfy</span><span class="p">(</span><span class="n">init_solution</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">init_solution</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">satisfy</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">satisfy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">satisfy</span><span class="p">(</span><span class="n">init_solution</span><span class="p">)</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Satisfy Initial solution </span><span class="si">{</span><span class="n">satisfy</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Nb task preempted = </span><span class="si">{</span><span class="n">init_solution</span><span class="o">.</span><span class="n">get_nb_task_preemption</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Nb task preempted = </span><span class="si">{</span><span class="n">init_solution</span><span class="o">.</span><span class="n">get_nb_task_preemption</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># type: ignore</span>
                 <span class="p">)</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nb max preemption = </span><span class="si">{</span><span class="n">init_solution</span><span class="o">.</span><span class="n">get_max_preempted</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nb max preemption = </span><span class="si">{</span><span class="n">init_solution</span><span class="o">.</span><span class="n">get_max_preempted</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
             <span class="k">except</span><span class="p">:</span>
                 <span class="k">pass</span>
             <span class="n">best_objective</span> <span class="o">=</span> <span class="n">objective</span>
@@ -340,15 +347,23 @@
                         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Solved !!!&quot;</span><span class="p">)</span>
                         <span class="n">bsol</span><span class="p">,</span> <span class="n">fit</span> <span class="o">=</span> <span class="n">result_store</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()</span>
                         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Fitness Before = </span><span class="si">{</span><span class="n">fit</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-                            <span class="sa">f</span><span class="s2">&quot;Satisfaction Before = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">satisfy</span><span class="p">(</span><span class="n">bsol</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
-                        <span class="p">)</span>
+                        <span class="k">if</span> <span class="n">bsol</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;Satisfaction Before = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">satisfy</span><span class="p">(</span><span class="n">bsol</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                            <span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Satisfaction Before = </span><span class="si">{</span><span class="kc">False</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Post Process..&quot;</span><span class="p">)</span>
                         <span class="n">result_store</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">post_process_solution</span><span class="o">.</span><span class="n">build_other_solution</span><span class="p">(</span>
                             <span class="n">result_store</span>
                         <span class="p">)</span>
                         <span class="n">bsol</span><span class="p">,</span> <span class="n">fit</span> <span class="o">=</span> <span class="n">result_store</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()</span>
-                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Satisfy after : </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">satisfy</span><span class="p">(</span><span class="n">bsol</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">bsol</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+                                <span class="sa">f</span><span class="s2">&quot;Satisfaction After = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">satisfy</span><span class="p">(</span><span class="n">bsol</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                            <span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Satisfaction After = </span><span class="si">{</span><span class="kc">False</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
                         <span class="k">if</span> <span class="n">sense</span> <span class="o">==</span> <span class="n">ModeOptim</span><span class="o">.</span><span class="n">MAXIMIZATION</span> <span class="ow">and</span> <span class="n">fit</span> <span class="o">&gt;=</span> <span class="n">best_objective</span><span class="p">:</span>
                             <span class="k">if</span> <span class="n">fit</span> <span class="o">&gt;</span> <span class="n">best_objective</span><span class="p">:</span>
                                 <span class="n">current_nb_iteration_no_improvement</span> <span class="o">=</span> <span class="mi">0</span>
@@ -395,7 +410,7 @@
                     <span class="k">break</span>
         <span class="k">return</span> <span class="n">store_lns</span></div>
 
-<div class="viewcode-block" id="LNS_CP.solve"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.lns_cp.LNS_CP.solve">[docs]</a>    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
+<div class="viewcode-block" id="LNS_CP.solve"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.lns_cp.LNS_CP.solve">[docs]</a>    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_lns</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
 
 
@@ -435,7 +450,7 @@
         <span class="n">max_time_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">skip_first_iteration</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">stop_first_iteration_if_optimal</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">args</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
         <span class="n">sense</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span><span class="o">.</span><span class="n">sense_function</span>
         <span class="k">if</span> <span class="n">max_time_seconds</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -534,7 +549,7 @@
                 <span class="k">break</span>
         <span class="k">return</span> <span class="n">store_lns</span></div>
 
-<div class="viewcode-block" id="LNS_CPlex.solve"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.lns_cp.LNS_CPlex.solve">[docs]</a>    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
+<div class="viewcode-block" id="LNS_CPlex.solve"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.lns_cp.LNS_CPlex.solve">[docs]</a>    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">solve_lns</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div></div>
 
 
@@ -576,7 +591,7 @@
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_constraints_handler</span><span class="p">))</span>
         <span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">last_index_param</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_fitness</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">last_fitness</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">fitness_class</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">update_proba</span> <span class="o">=</span> <span class="n">update_proba</span>
 
 <div class="viewcode-block" id="ConstraintHandlerMix.adding_constraint_from_results_store"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.lns_cp.ConstraintHandlerMix.adding_constraint_from_results_store">[docs]</a>    <span class="k">def</span> <span class="nf">adding_constraint_from_results_store</span><span class="p">(</span>
@@ -637,8 +652,11 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="ConstraintHandlerMix.remove_constraints_from_previous_iteration"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.lns_cp.ConstraintHandlerMix.remove_constraints_from_previous_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">remove_constraints_from_previous_iteration</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">cp_solver</span><span class="p">:</span> <span class="n">CPSolver</span><span class="p">,</span> <span class="n">child_instance</span><span class="p">,</span> <span class="n">previous_constraints</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span>
-    <span class="p">):</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">cp_solver</span><span class="p">:</span> <span class="n">CPSolver</span><span class="p">,</span>
+        <span class="n">child_instance</span><span class="p">:</span> <span class="n">Instance</span><span class="p">,</span>
+        <span class="n">previous_constraints</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">pass</span></div></div>
 </pre></div>
 

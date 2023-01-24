@@ -176,7 +176,10 @@
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Hashable</span><span class="p">,</span> <span class="n">Mapping</span>
 
-<span class="kn">from</span> <span class="nn">discrete_optimization.coloring.coloring_model</span> <span class="kn">import</span> <span class="n">ColoringProblem</span>
+<span class="kn">from</span> <span class="nn">discrete_optimization.coloring.coloring_model</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ColoringProblem</span><span class="p">,</span>
+    <span class="n">ColoringSolution</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">discrete_optimization.coloring.solvers.coloring_lp_solvers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ColoringLP</span><span class="p">,</span>
     <span class="n">ColoringLP_MIP</span><span class="p">,</span>
@@ -236,7 +239,7 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">solver</span> <span class="o">=</span> <span class="n">GreedyColoring</span><span class="p">(</span>
-                <span class="n">color_problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span>
+                <span class="n">coloring_model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span>
                 <span class="n">params_objective_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">params_objective_function</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="k">return</span> <span class="n">solver</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span></div></div>
@@ -275,7 +278,19 @@
         <span class="p">)</span>
         <span class="n">dict_color_fixed</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">dict_color_start</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">current_solution</span> <span class="o">=</span> <span class="n">result_storage</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">current_solution</span> <span class="o">=</span> <span class="n">result_storage</span><span class="o">.</span><span class="n">get_best_solution</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">current_solution</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;result_storage.get_best_solution() &quot;</span> <span class="s2">&quot;should not be None.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_solution</span><span class="p">,</span> <span class="n">ColoringSolution</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;result_storage.get_best_solution() &quot;</span> <span class="s2">&quot;should be a ColoringSolution.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">current_solution</span><span class="o">.</span><span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;result_storage.get_best_solution().colors &quot;</span> <span class="s2">&quot;should not be None.&quot;</span>
+            <span class="p">)</span>
         <span class="n">max_color</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">current_solution</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">milp_solver</span><span class="o">.</span><span class="n">nodes_name</span><span class="p">:</span>
             <span class="n">dict_color_start</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_solution</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span>
@@ -306,7 +321,7 @@
 
 <div class="viewcode-block" id="ConstraintHandlerFixColorsGrb.remove_constraints_from_previous_iteration"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_lp_lns_solvers.ConstraintHandlerFixColorsGrb.remove_constraints_from_previous_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">remove_constraints_from_previous_iteration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">milp_solver</span><span class="p">:</span> <span class="n">MilpSolver</span><span class="p">,</span> <span class="n">previous_constraints</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">milp_solver</span><span class="p">,</span> <span class="n">ColoringLP</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;milp_solver must a ColoringLP for this constraint.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">milp_solver</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -353,7 +368,19 @@
 
         <span class="n">dict_color_fixed</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">dict_color_start</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">current_solution</span> <span class="o">=</span> <span class="n">result_storage</span><span class="o">.</span><span class="n">get_best_solution_fit</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">current_solution</span> <span class="o">=</span> <span class="n">result_storage</span><span class="o">.</span><span class="n">get_best_solution</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">current_solution</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;result_storage.get_best_solution() &quot;</span> <span class="s2">&quot;should not be None.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">current_solution</span><span class="p">,</span> <span class="n">ColoringSolution</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;result_storage.get_best_solution() &quot;</span> <span class="s2">&quot;should be a ColoringSolution.&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">current_solution</span><span class="o">.</span><span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;result_storage.get_best_solution().colors &quot;</span> <span class="s2">&quot;should not be None.&quot;</span>
+            <span class="p">)</span>
         <span class="n">max_color</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">current_solution</span><span class="o">.</span><span class="n">colors</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">milp_solver</span><span class="o">.</span><span class="n">nodes_name</span><span class="p">:</span>
             <span class="n">dict_color_start</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">current_solution</span><span class="o">.</span><span class="n">colors</span><span class="p">[</span>
@@ -386,7 +413,7 @@
 
 <div class="viewcode-block" id="ConstraintHandlerFixColorsPyMip.remove_constraints_from_previous_iteration"><a class="viewcode-back" href="../../../../api/discrete_optimization.coloring.solvers.html#discrete_optimization.coloring.solvers.coloring_lp_lns_solvers.ConstraintHandlerFixColorsPyMip.remove_constraints_from_previous_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">remove_constraints_from_previous_iteration</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">milp_solver</span><span class="p">:</span> <span class="n">MilpSolver</span><span class="p">,</span> <span class="n">previous_constraints</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="n">Hashable</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
-    <span class="p">):</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">milp_solver</span><span class="p">,</span> <span class="n">ColoringLP_MIP</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;milp_solver must a ColoringLP for this constraint.&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">milp_solver</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

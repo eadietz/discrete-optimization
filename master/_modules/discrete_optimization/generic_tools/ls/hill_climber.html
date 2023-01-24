@@ -203,8 +203,8 @@
         <span class="n">restart_handler</span><span class="p">:</span> <span class="n">RestartHandler</span><span class="p">,</span>
         <span class="n">mode_mutation</span><span class="p">:</span> <span class="n">ModeMutation</span><span class="p">,</span>
         <span class="n">params_objective_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ParamsObjectiveFunction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">store_solution</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">nb_solutions</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="n">store_solution</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">nb_solutions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evaluator</span> <span class="o">=</span> <span class="n">evaluator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mutator</span> <span class="o">=</span> <span class="n">mutator</span>
@@ -229,8 +229,8 @@
         <span class="n">initial_variable</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span>
         <span class="n">nb_iteration_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">max_time_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">pickle_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">pickle_name</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span>
+        <span class="n">pickle_result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">pickle_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;debug&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
         <span class="n">objective</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggreg_from_dict_values</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">evaluator</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">initial_variable</span><span class="p">)</span>
@@ -319,8 +319,8 @@
         <span class="n">restart_handler</span><span class="p">:</span> <span class="n">RestartHandler</span><span class="p">,</span>
         <span class="n">mode_mutation</span><span class="p">:</span> <span class="n">ModeMutation</span><span class="p">,</span>
         <span class="n">params_objective_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ParamsObjectiveFunction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">store_solution</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">nb_solutions</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="n">store_solution</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">nb_solutions</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">evaluator</span><span class="o">=</span><span class="n">evaluator</span><span class="p">,</span>
@@ -337,9 +337,9 @@
         <span class="n">initial_variable</span><span class="p">:</span> <span class="n">Solution</span><span class="p">,</span>
         <span class="n">nb_iteration_max</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
         <span class="n">max_time_seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">pickle_result</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">pickle_name</span><span class="o">=</span><span class="s2">&quot;tsp&quot;</span><span class="p">,</span>
-        <span class="n">update_iteration_pareto</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+        <span class="n">pickle_result</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">pickle_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tsp&quot;</span><span class="p">,</span>
+        <span class="n">update_iteration_pareto</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ParetoFront</span><span class="p">:</span>
         <span class="n">init_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
         <span class="n">objective</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggreg_from_dict_values</span><span class="p">(</span>

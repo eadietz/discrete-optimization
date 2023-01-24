@@ -28,6 +28,14 @@ discrete\_optimization.facility.solvers.facility\_lp\_solver module
    :undoc-members:
    :show-inheritance:
 
+discrete\_optimization.facility.solvers.facility\_solver module
+---------------------------------------------------------------
+
+.. automodule:: discrete_optimization.facility.solvers.facility_solver
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 discrete\_optimization.facility.solvers.gphh\_facility module
 -------------------------------------------------------------
 

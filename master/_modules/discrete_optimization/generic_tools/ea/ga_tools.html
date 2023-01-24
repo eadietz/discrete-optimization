@@ -213,7 +213,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">deap_verbose</span> <span class="o">=</span> <span class="n">deap_verbose</span>
 
 <div class="viewcode-block" id="ParametersGa.default_rcpsp"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.ea.html#discrete_optimization.generic_tools.ea.ga_tools.ParametersGa.default_rcpsp">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">default_rcpsp</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">default_rcpsp</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;ParametersGa&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ParametersGa</span><span class="p">(</span>
             <span class="n">mutation</span><span class="o">=</span><span class="n">DeapMutation</span><span class="o">.</span><span class="n">MUT_SHUFFLE_INDEXES</span><span class="p">,</span>
             <span class="n">crossover</span><span class="o">=</span><span class="n">DeapCrossover</span><span class="o">.</span><span class="n">CX_UNIFORM_PARTIALY_MATCHED</span><span class="p">,</span>
@@ -265,7 +265,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">sub_evals</span> <span class="o">=</span> <span class="n">sub_evals</span>
 
 <div class="viewcode-block" id="ParametersAltGa.default_mrcpsp"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.ea.html#discrete_optimization.generic_tools.ea.ga_tools.ParametersAltGa.default_mrcpsp">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">default_mrcpsp</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">default_mrcpsp</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;ParametersAltGa&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ParametersAltGa</span><span class="p">(</span>
             <span class="n">mutations</span><span class="o">=</span><span class="p">[</span><span class="n">DeapMutation</span><span class="o">.</span><span class="n">MUT_UNIFORM_INT</span><span class="p">,</span> <span class="n">DeapMutation</span><span class="o">.</span><span class="n">MUT_SHUFFLE_INDEXES</span><span class="p">],</span>
             <span class="n">crossovers</span><span class="o">=</span><span class="p">[</span>
@@ -287,7 +287,7 @@
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="ParametersAltGa.default_msrcpsp"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.ea.html#discrete_optimization.generic_tools.ea.ga_tools.ParametersAltGa.default_msrcpsp">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">default_msrcpsp</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">default_msrcpsp</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="s2">&quot;ParametersAltGa&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">ParametersAltGa</span><span class="p">(</span>
             <span class="n">mutations</span><span class="o">=</span><span class="p">[</span>
                 <span class="n">DeapMutation</span><span class="o">.</span><span class="n">MUT_UNIFORM_INT</span><span class="p">,</span>

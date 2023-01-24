@@ -174,10 +174,24 @@
 
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Iterable</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">TypeVar</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.typing</span> <span class="k">as</span> <span class="nn">npt</span>
 
 <span class="kn">from</span> <span class="nn">discrete_optimization.generic_tools.result_storage.multiobj_utils</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">TupleFitness</span><span class="p">,</span>
@@ -245,17 +259,17 @@
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_attribute_to_type</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
         <span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;Encoding : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dict_attribute_to_type</span><span class="p">)</span>
 
-<div class="viewcode-block" id="EncodingRegister.lower_bound_vector_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.EncodingRegister.lower_bound_vector_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">lower_bound_vector_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding_name</span><span class="p">):</span>
+<div class="viewcode-block" id="EncodingRegister.lower_bound_vector_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.EncodingRegister.lower_bound_vector_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">lower_bound_vector_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return for an encoding that is of type LIST_INTEGER or associated, the lower bound vector.</span>
 <span class="sd">        Examples: if the vector should contains value higher or equal to 1, the function will return a list full of 1.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">dict_encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_attribute_to_type</span><span class="p">[</span><span class="n">encoding_name</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">lower_bound_vector_encoding_from_dict</span><span class="p">(</span><span class="n">dict_encoding</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="EncodingRegister.upper_bound_vector_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.EncodingRegister.upper_bound_vector_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">upper_bound_vector_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding_name</span><span class="p">):</span>
+<div class="viewcode-block" id="EncodingRegister.upper_bound_vector_encoding"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.EncodingRegister.upper_bound_vector_encoding">[docs]</a>    <span class="k">def</span> <span class="nf">upper_bound_vector_encoding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">encoding_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return for an encoding that is of type LIST_INTEGER or associated, the upper bound vector.</span>
 <span class="sd">        Examples: if the vector should contains value higher or equal to 1, the function will return a list full of 1.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -263,44 +277,43 @@
         <span class="k">return</span> <span class="n">upper_bound_vector_encoding_from_dict</span><span class="p">(</span><span class="n">dict_encoding</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="lower_bound_vector_encoding_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.lower_bound_vector_encoding_from_dict">[docs]</a><span class="k">def</span> <span class="nf">lower_bound_vector_encoding_from_dict</span><span class="p">(</span><span class="n">dict_encoding</span><span class="p">):</span>
+<div class="viewcode-block" id="lower_bound_vector_encoding_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.lower_bound_vector_encoding_from_dict">[docs]</a><span class="k">def</span> <span class="nf">lower_bound_vector_encoding_from_dict</span><span class="p">(</span><span class="n">dict_encoding</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
     <span class="n">length_encoding</span> <span class="o">=</span> <span class="n">dict_encoding</span><span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="s2">&quot;low&quot;</span> <span class="ow">in</span> <span class="n">dict_encoding</span><span class="p">:</span>
-        <span class="n">low_value</span> <span class="o">=</span> <span class="n">dict_encoding</span><span class="p">[</span><span class="s2">&quot;low&quot;</span><span class="p">]</span>
-        <span class="n">low_value_vector</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">low_value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dict_encoding</span><span class="p">[</span><span class="s2">&quot;low&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">low_value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">low_value_vector</span> <span class="o">=</span> <span class="p">[</span><span class="n">low_value</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length_encoding</span><span class="p">)]</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">low_value</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)):</span>
-            <span class="n">low_value_vector</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">low_value</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">low_value_vector</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">low_value</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length_encoding</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">low_value</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[</span><span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length_encoding</span><span class="p">)]</span>  <span class="c1"># By default we start at zero.</span></div>
 
 
-<div class="viewcode-block" id="upper_bound_vector_encoding_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.upper_bound_vector_encoding_from_dict">[docs]</a><span class="k">def</span> <span class="nf">upper_bound_vector_encoding_from_dict</span><span class="p">(</span><span class="n">dict_encoding</span><span class="p">):</span>
+<div class="viewcode-block" id="upper_bound_vector_encoding_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.upper_bound_vector_encoding_from_dict">[docs]</a><span class="k">def</span> <span class="nf">upper_bound_vector_encoding_from_dict</span><span class="p">(</span><span class="n">dict_encoding</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return for an encoding that is of type LIST_INTEGER or associated, the upper bound vector.</span>
 
 <span class="sd">    Examples: if the vector should contains value higher or equal to 1, the function will return a list full of 1.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">length_encoding</span> <span class="o">=</span> <span class="n">dict_encoding</span><span class="p">[</span><span class="s2">&quot;n&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="s2">&quot;up&quot;</span> <span class="ow">in</span> <span class="n">dict_encoding</span><span class="p">:</span>
-        <span class="n">up_value</span> <span class="o">=</span> <span class="n">dict_encoding</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">]</span>
-        <span class="n">up_value_vector</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">up_value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="n">dict_encoding</span><span class="p">[</span><span class="s2">&quot;up&quot;</span><span class="p">]</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">up_value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-            <span class="n">up_value_vector</span> <span class="o">=</span> <span class="p">[</span><span class="n">up_value</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length_encoding</span><span class="p">)]</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">up_value</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">)):</span>
-            <span class="n">up_value_vector</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">up_value</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">up_value_vector</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">up_value</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length_encoding</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">up_value</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">low</span> <span class="o">=</span> <span class="n">lower_bound_vector_encoding_from_dict</span><span class="p">(</span><span class="n">dict_encoding</span><span class="p">)</span>
         <span class="n">up_value_vector</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="s2">&quot;arity&quot;</span> <span class="ow">in</span> <span class="n">dict_encoding</span><span class="p">:</span>
             <span class="n">arity</span> <span class="o">=</span> <span class="n">dict_encoding</span><span class="p">[</span><span class="s2">&quot;arity&quot;</span><span class="p">]</span>  <span class="c1"># number of possible value.</span>
-            <span class="n">up_value_vector</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">arity</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">low</span><span class="p">]</span>
-        <span class="k">if</span> <span class="s2">&quot;arities&quot;</span> <span class="ow">in</span> <span class="n">dict_encoding</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">arity</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">low</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="s2">&quot;arities&quot;</span> <span class="ow">in</span> <span class="n">dict_encoding</span><span class="p">:</span>
             <span class="n">arities</span> <span class="o">=</span> <span class="n">dict_encoding</span><span class="p">[</span><span class="s2">&quot;arities&quot;</span><span class="p">]</span>
-            <span class="n">up_value_vector</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">arr</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">arr</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">arities</span><span class="p">)]</span>
-        <span class="k">return</span> <span class="n">up_value_vector</span></div>
+            <span class="k">return</span> <span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">arr</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">arr</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">low</span><span class="p">,</span> <span class="n">arities</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;dict_encoding must either have &#39;up&#39;, &#39;arity&#39; or &#39;arities&#39; as a key.&quot;</span>
+            <span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ObjectiveHandling"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ObjectiveHandling">[docs]</a><span class="k">class</span> <span class="nc">ObjectiveHandling</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
@@ -317,10 +330,16 @@
 
 
 <div class="viewcode-block" id="TypeObjective"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.TypeObjective">[docs]</a><span class="k">class</span> <span class="nc">TypeObjective</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class to specify what should each KPI are.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Enum class to specify what should each KPI be.&quot;&quot;&quot;</span>
 
     <span class="n">OBJECTIVE</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">PENALTY</span> <span class="o">=</span> <span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="ObjectiveDoc"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ObjectiveDoc">[docs]</a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span> <span class="nc">ObjectiveDoc</span><span class="p">:</span>
+    <span class="nb">type</span><span class="p">:</span> <span class="n">TypeObjective</span>
+    <span class="n">default_weight</span><span class="p">:</span> <span class="nb">float</span></div>
 
 
 <div class="viewcode-block" id="ObjectiveRegister"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ObjectiveRegister">[docs]</a><span class="k">class</span> <span class="nc">ObjectiveRegister</span><span class="p">:</span>
@@ -337,8 +356,8 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        In ColoringProblem implementation.</span>
 <span class="sd">        dict_objective = {</span>
-<span class="sd">            &quot;nb_colors&quot;: {&quot;type&quot;: TypeObjective.OBJECTIVE, &quot;default_weight&quot;: -1},</span>
-<span class="sd">            &quot;nb_violations&quot;: {&quot;type&quot;: TypeObjective.PENALTY, &quot;default_weight&quot;: -100},</span>
+<span class="sd">            &quot;nb_colors&quot;: ObjectiveDoc(type=TypeObjective.OBJECTIVE, default_weight=-1),</span>
+<span class="sd">            &quot;nb_violations&quot;: ObjectiveDoc(type=TypeObjective.PENALTY, default_weight=-100),</span>
 <span class="sd">        }</span>
 
 <span class="sd">    Attributes</span>
@@ -351,7 +370,7 @@
 
     <span class="n">objective_sense</span><span class="p">:</span> <span class="n">ModeOptim</span>
     <span class="n">objective_handling</span><span class="p">:</span> <span class="n">ObjectiveHandling</span>
-    <span class="n">dict_objective_to_doc</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>
+    <span class="n">dict_objective_to_doc</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ObjectiveDoc</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -363,18 +382,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">objective_handling</span> <span class="o">=</span> <span class="n">objective_handling</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dict_objective_to_doc</span> <span class="o">=</span> <span class="n">dict_objective_to_doc</span>
 
-<div class="viewcode-block" id="ObjectiveRegister.get_list_objective_and_default_weight"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ObjectiveRegister.get_list_objective_and_default_weight">[docs]</a>    <span class="k">def</span> <span class="nf">get_list_objective_and_default_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ObjectiveRegister.get_list_objective_and_default_weight"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.ObjectiveRegister.get_list_objective_and_default_weight">[docs]</a>    <span class="k">def</span> <span class="nf">get_list_objective_and_default_weight</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Flatten the list of kpi names and default weight.</span>
 
 <span class="sd">        Returns: list of kpi names, list of default weight for the aggregated objective function.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">d</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_objective_to_doc</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="s2">&quot;default_weight&quot;</span><span class="p">])</span>
+            <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_objective_to_doc</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">default_weight</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dict_objective_to_doc</span>
         <span class="p">]</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">d</span><span class="p">],</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">d</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Objective Register :</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Obj sense : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objective_sense</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Obj handling : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objective_handling</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -420,7 +439,7 @@
         <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">get_attribute_register</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Solution.change_problem"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Solution.change_problem">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">change_problem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_problem</span><span class="p">:</span> <span class="s2">&quot;Problem&quot;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">change_problem</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_problem</span><span class="p">:</span> <span class="s2">&quot;Problem&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;If relevant to the optimisation problem, change the underlying problem instance for the solution.</span>
 
 <span class="sd">        This method can be used to evaluate a solution for different instance of problems.</span>
@@ -468,7 +487,7 @@
         <span class="n">dict_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">variable</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">TupleFitness</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dict_values</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">keys</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Problem.evaluate_mobj_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.evaluate_mobj_from_dict">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_mobj_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]):</span>
+<div class="viewcode-block" id="Problem.evaluate_mobj_from_dict"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.evaluate_mobj_from_dict">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate_mobj_from_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dict_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">TupleFitness</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Return an multiobjective fitness from a dictionnary of kpi (output of evaluate function).</span>
 
 <span class="sd">        It consists in flattening the evaluate() function and put in an array.</span>
@@ -505,7 +524,7 @@
         <span class="o">...</span></div>
 
 <div class="viewcode-block" id="Problem.get_solution_type"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.Problem.get_solution_type">[docs]</a>    <span class="nd">@abstractmethod</span>
-    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">Solution</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the class implementation of a Solution.</span>
 
 <span class="sd">        Returns (class): class object of the given Problem.</span>
@@ -566,54 +585,65 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Problem built from a list of other problem (that should be considered as &quot;scenario&quot; optimisation problems).</span>
 
 <span class="sd">    Attributes:</span>
-<span class="sd">        list_problem (List[Problem]): List of Problems corresponding to different scenarios.</span>
-<span class="sd">        method_aggregating (MethodAggregating): specifies how the evaluation on each scenario should be merged</span>
+<span class="sd">        list_problem: List of Problems corresponding to different scenarios.</span>
+<span class="sd">        method_aggregating: specifies how the evaluation on each scenario should be merged</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">list_problem</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Problem</span><span class="p">],</span> <span class="n">method_aggregating</span><span class="p">:</span> <span class="n">MethodAggregating</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">list_problem</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Problem</span><span class="p">],</span> <span class="n">method_aggregating</span><span class="p">:</span> <span class="n">MethodAggregating</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span> <span class="o">=</span> <span class="n">list_problem</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span> <span class="o">=</span> <span class="n">method_aggregating</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">nb_problem</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">agg_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregate_vector</span><span class="p">()</span>
 
-<div class="viewcode-block" id="RobustProblem.aggregate_vector"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.aggregate_vector">[docs]</a>    <span class="k">def</span> <span class="nf">aggregate_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RobustProblem.aggregate_vector"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.aggregate_vector">[docs]</a>    <span class="k">def</span> <span class="nf">aggregate_vector</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">],</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the aggregation function coherent with the method_aggregating attribute.</span>
 
 <span class="sd">        Returns: aggregation function</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">func</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">],</span> <span class="nb">float</span><span class="p">]</span>
         <span class="k">if</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">base_method_aggregating</span>
             <span class="o">==</span> <span class="n">BaseMethodAggregating</span><span class="o">.</span><span class="n">MEAN</span>
         <span class="p">):</span>
             <span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span>
-        <span class="k">if</span> <span class="p">(</span>
+        <span class="k">elif</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">base_method_aggregating</span>
             <span class="o">==</span> <span class="n">BaseMethodAggregating</span><span class="o">.</span><span class="n">MEDIAN</span>
         <span class="p">):</span>
-            <span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span>
-        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span>  <span class="c1"># type: ignore</span>
+        <span class="k">elif</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">base_method_aggregating</span>
             <span class="o">==</span> <span class="n">BaseMethodAggregating</span><span class="o">.</span><span class="n">PERCENTILE</span>
         <span class="p">):</span>
 
-            <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">percentile</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">percentile</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
 
-        <span class="k">if</span> <span class="p">(</span>
+        <span class="k">elif</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">base_method_aggregating</span>
             <span class="o">==</span> <span class="n">BaseMethodAggregating</span><span class="o">.</span><span class="n">PONDERATION</span>
         <span class="p">):</span>
 
-            <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">ponderation</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">npt</span><span class="o">.</span><span class="n">ArrayLike</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">ponderation</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">base_method_aggregating</span> <span class="o">==</span> <span class="n">BaseMethodAggregating</span><span class="o">.</span><span class="n">MIN</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">base_method_aggregating</span> <span class="o">==</span> <span class="n">BaseMethodAggregating</span><span class="o">.</span><span class="n">MIN</span>
+        <span class="p">):</span>
             <span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">base_method_aggregating</span> <span class="o">==</span> <span class="n">BaseMethodAggregating</span><span class="o">.</span><span class="n">MAX</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">base_method_aggregating</span> <span class="o">==</span> <span class="n">BaseMethodAggregating</span><span class="o">.</span><span class="n">MAX</span>
+        <span class="p">):</span>
             <span class="n">func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown aggregating method </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">method_aggregating</span><span class="o">.</span><span class="n">base_method_aggregating</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
         <span class="k">return</span> <span class="n">func</span></div>
 
 <div class="viewcode-block" id="RobustProblem.evaluate"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">:</span> <span class="n">Solution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
@@ -652,7 +682,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;See ```Problem.get_attribute_register``` doc.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_attribute_register</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="RobustProblem.get_solution_type"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RobustProblem.get_solution_type"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.RobustProblem.get_solution_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_solution_type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">Solution</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;See ```Problem.get_solution_type``` doc.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">list_problem</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_solution_type</span><span class="p">()</span></div>
 
@@ -684,7 +714,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sense_function</span> <span class="o">=</span> <span class="n">sense_function</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Params objective function :  </span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Sense : &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sense_function</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
         <span class="n">s</span> <span class="o">+=</span> <span class="s2">&quot;Objective handling &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">objective_handling</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -718,8 +748,14 @@
     <span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span>
     <span class="n">params_objective_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ParamsObjectiveFunction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span>
-    <span class="n">Callable</span><span class="p">[[</span><span class="n">Solution</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
-    <span class="n">Callable</span><span class="p">[[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">Union</span><span class="p">[</span>
+        <span class="n">Callable</span><span class="p">[[</span><span class="n">Solution</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
+        <span class="n">Callable</span><span class="p">[[</span><span class="n">Solution</span><span class="p">],</span> <span class="n">TupleFitness</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="n">Union</span><span class="p">[</span>
+        <span class="n">Callable</span><span class="p">[[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="nb">float</span><span class="p">],</span>
+        <span class="n">Callable</span><span class="p">[[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">TupleFitness</span><span class="p">],</span>
+    <span class="p">],</span>
     <span class="n">ParamsObjectiveFunction</span><span class="p">,</span>
 <span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Build evaluation function from the problem and the params of objective function.</span>
@@ -748,7 +784,12 @@
 <div class="viewcode-block" id="build_evaluate_function_aggregated"><a class="viewcode-back" href="../../../api/discrete_optimization.generic_tools.html#discrete_optimization.generic_tools.do_problem.build_evaluate_function_aggregated">[docs]</a><span class="k">def</span> <span class="nf">build_evaluate_function_aggregated</span><span class="p">(</span>
     <span class="n">problem</span><span class="p">:</span> <span class="n">Problem</span><span class="p">,</span>
     <span class="n">params_objective_function</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ParamsObjectiveFunction</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Solution</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span>
+    <span class="n">Tuple</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[</span><span class="n">Solution</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="nb">float</span><span class="p">]],</span>
+    <span class="n">Tuple</span><span class="p">[</span>
+        <span class="n">Callable</span><span class="p">[[</span><span class="n">Solution</span><span class="p">],</span> <span class="n">TupleFitness</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]],</span> <span class="n">TupleFitness</span><span class="p">]</span>
+    <span class="p">],</span>
+<span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Build 2 eval functions based from the problem and params of objective function.</span>
 
 <span class="sd">    The 2 eval function are callable with a Solution for the first one, and a Dict[str, float]</span>
@@ -770,8 +811,6 @@
     <span class="n">objectives</span> <span class="o">=</span> <span class="n">params_objective_function</span><span class="o">.</span><span class="n">objectives</span>
     <span class="n">weights</span> <span class="o">=</span> <span class="n">params_objective_function</span><span class="o">.</span><span class="n">weights</span>
     <span class="n">objective_handling</span> <span class="o">=</span> <span class="n">params_objective_function</span><span class="o">.</span><span class="n">objective_handling</span>
-    <span class="n">eval_sol</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">eval_from_dict_values</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">objective_handling</span> <span class="o">==</span> <span class="n">ObjectiveHandling</span><span class="o">.</span><span class="n">AGGREGATE</span><span class="p">:</span>
         <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">objectives</span><span class="p">)</span>
 
@@ -784,7 +823,9 @@
             <span class="n">val</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">([</span><span class="n">dict_values</span><span class="p">[</span><span class="n">objectives</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">*</span> <span class="n">weights</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">)])</span>
             <span class="k">return</span> <span class="n">sign</span> <span class="o">*</span> <span class="n">val</span>
 
-    <span class="k">if</span> <span class="n">objective_handling</span> <span class="o">==</span> <span class="n">ObjectiveHandling</span><span class="o">.</span><span class="n">SINGLE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">eval_sol</span><span class="p">,</span> <span class="n">eval_from_dict_values</span>
+
+    <span class="k">elif</span> <span class="n">objective_handling</span> <span class="o">==</span> <span class="n">ObjectiveHandling</span><span class="o">.</span><span class="n">SINGLE</span><span class="p">:</span>
         <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">objectives</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">eval_sol</span><span class="p">(</span><span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -794,10 +835,12 @@
         <span class="k">def</span> <span class="nf">eval_from_dict_values</span><span class="p">(</span><span class="n">dict_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">sign</span> <span class="o">*</span> <span class="n">dict_values</span><span class="p">[</span><span class="n">objectives</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="n">weights</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="k">if</span> <span class="n">objective_handling</span> <span class="o">==</span> <span class="n">ObjectiveHandling</span><span class="o">.</span><span class="n">MULTI_OBJ</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">eval_sol</span><span class="p">,</span> <span class="n">eval_from_dict_values</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># objective_handling == ObjectiveHandling.MULTI_OBJ:</span>
         <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">objectives</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">eval_sol</span><span class="p">(</span><span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">eval_sol2</span><span class="p">(</span><span class="n">solution</span><span class="p">:</span> <span class="n">Solution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TupleFitness</span><span class="p">:</span>
             <span class="n">d</span> <span class="o">=</span> <span class="n">problem</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">solution</span><span class="p">)</span>
             <span class="k">return</span> <span class="p">(</span>
                 <span class="n">TupleFitness</span><span class="p">(</span>
@@ -807,7 +850,7 @@
                 <span class="o">*</span> <span class="n">sign</span>
             <span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">eval_from_dict_values</span><span class="p">(</span><span class="n">dict_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">eval_from_dict_values2</span><span class="p">(</span><span class="n">dict_values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">TupleFitness</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span>
                 <span class="n">TupleFitness</span><span class="p">(</span>
                     <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
@@ -818,7 +861,7 @@
                 <span class="o">*</span> <span class="n">sign</span>
             <span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">eval_sol</span><span class="p">,</span> <span class="n">eval_from_dict_values</span></div>
+        <span class="k">return</span> <span class="n">eval_sol2</span><span class="p">,</span> <span class="n">eval_from_dict_values2</span></div>
 </pre></div>
 
            </div>

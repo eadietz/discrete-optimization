@@ -245,14 +245,15 @@
             <span class="n">problem</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="p">,</span> <span class="n">params_objective_function</span><span class="o">=</span><span class="kc">None</span>
         <span class="p">)</span>
 
-<div class="viewcode-block" id="AlternatingGa.solve"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.ea.html#discrete_optimization.generic_tools.ea.alternating_ga.AlternatingGa.solve">[docs]</a>    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="AlternatingGa.solve"><a class="viewcode-back" href="../../../../api/discrete_optimization.generic_tools.ea.html#discrete_optimization.generic_tools.ea.alternating_ga.AlternatingGa.solve">[docs]</a>    <span class="k">def</span> <span class="nf">solve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResultStorage</span><span class="p">:</span>
         <span class="c1"># Initialise the population (here at random)</span>
         <span class="n">count_evals</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">current_encoding_index</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encodings</span><span class="p">)):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">set_fixed_attributes</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">encodings</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">get_dummy_solution</span><span class="p">()</span>
-            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encodings</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">encodings</span><span class="p">)):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">set_fixed_attributes</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">encodings</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">get_dummy_solution</span><span class="p">()</span>  <span class="c1"># type: ignore</span>
+                <span class="p">)</span>
         <span class="k">while</span> <span class="n">count_evals</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_evals</span><span class="p">:</span>
             <span class="n">kwargs_ga</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutations</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -284,9 +285,14 @@
                 <span class="o">**</span><span class="n">kwargs_ga</span>
             <span class="p">)</span>
             <span class="n">tmp_sol</span> <span class="o">=</span> <span class="n">ga_solver</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span><span class="o">.</span><span class="n">get_best_solution</span><span class="p">()</span>
-            <span class="n">count_evals</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_evals</span><span class="p">[</span><span class="n">current_encoding_index</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">set_fixed_attributes</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">encodings</span><span class="p">[</span><span class="n">current_encoding_index</span><span class="p">],</span> <span class="n">tmp_sol</span>
+            <span class="n">count_evals</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sub_evals</span><span class="p">[</span><span class="n">current_encoding_index</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">encodings</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">problem</span><span class="o">.</span><span class="n">set_fixed_attributes</span><span class="p">(</span>  <span class="c1"># type: ignore</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">encodings</span><span class="p">[</span><span class="n">current_encoding_index</span><span class="p">],</span> <span class="n">tmp_sol</span>
+                <span class="p">)</span>
+        <span class="k">if</span> <span class="n">tmp_sol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;ga_solver.solve().get_best_solution() should not be None!&quot;</span>
             <span class="p">)</span>
         <span class="n">problem_sol</span> <span class="o">=</span> <span class="n">tmp_sol</span>
         <span class="n">result_storage</span> <span class="o">=</span> <span class="n">ResultStorage</span><span class="p">(</span>
